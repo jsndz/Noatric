@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../features/Navbar/Navbar";
-import ProductList from "../features/ProductList/ProductList";
+import ProductList from "../features/Product/component/ProductList";
 
 function Home() {
   return (
