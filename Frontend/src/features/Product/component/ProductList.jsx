@@ -11,39 +11,41 @@ import {
   StarIcon,
 } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
-const products = [
-  {
-    id: 1,
-    title: "Basic Tee",
-    href: "#",
-    thumbnail:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 2,
-    title: "Basic Tee",
-    href: "#",
-    thumbnail:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: "$35",
-    color: "Black",
-  },
-  {
-    id: 3,
-    title: "Basic Tee",
-    href: "#",
-    thumbnail:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: 35,
-    rating: "Black",
-    discountPercentage: 12.96,
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { selectAllProducts } from "../productSlice";
+// const products = [
+//   {
+//     id: 1,
+//     title: "Basic Tee",
+//     href: "#",
+//     thumbnail:
+//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+//     imageAlt: "Front of men's Basic Tee in black.",
+//     price: "$35",
+//     color: "Black",
+//   },
+//   {
+//     id: 2,
+//     title: "Basic Tee",
+//     href: "#",
+//     thumbnail:
+//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+//     imageAlt: "Front of men's Basic Tee in black.",
+//     price: "$35",
+//     color: "Black",
+//   },
+//   {
+//     id: 3,
+//     title: "Basic Tee",
+//     href: "#",
+//     thumbnail:
+//       "https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg",
+//     imageAlt: "Front of men's Basic Tee in black.",
+//     price: 35,
+//     rating: "Black",
+//     discountPercentage: 12.96,
+//   },
+// ];
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -96,6 +98,8 @@ function classNames(...classes) {
 }
 export default function ProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector(selectAllProducts);
   return (
     <div className="bg-white">
       <div>
