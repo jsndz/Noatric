@@ -10,7 +10,6 @@ export const fetchAllProductsAsync = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const response = await fetchAllProducts();
-
       return response.data;
     } catch (error) {
       console.error("Error fetching cart items:", error);

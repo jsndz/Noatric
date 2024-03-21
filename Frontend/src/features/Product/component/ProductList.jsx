@@ -24,8 +24,8 @@ const sortOptions = [
 
 const filters = [
   {
-    id: "color",
-    name: "Color",
+    id: "Brand",
+    name: "Brand",
     options: [
       { value: "white", label: "White", checked: false },
       { value: "beige", label: "Beige", checked: false },
@@ -46,18 +46,6 @@ const filters = [
       { value: "accessories", label: "Accessories", checked: false },
     ],
   },
-  {
-    id: "size",
-    name: "Size",
-    options: [
-      { value: "2l", label: "2L", checked: false },
-      { value: "6l", label: "6L", checked: false },
-      { value: "12l", label: "12L", checked: false },
-      { value: "18l", label: "18L", checked: false },
-      { value: "20l", label: "20L", checked: false },
-      { value: "40l", label: "40L", checked: true },
-    ],
-  },
 ];
 
 function classNames(...classes) {
@@ -66,10 +54,10 @@ function classNames(...classes) {
 export default function ProductList() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const dispatch = useDispatch();
-  useEffect(dispatch(fetchAllProductsAsync()), []);
+  useEffect(() => {
+    dispatch(fetchAllProductsAsync());
+  }, []);
   const products = useSelector(selectAllProducts);
-
-  console.log("he", products.data);
   return (
     <div className="bg-white">
       <div>
@@ -335,7 +323,7 @@ export default function ProductList() {
                               >
                                 <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                                   <img
-                                    src={product.thumbnail}
+                                    src={product.images[0]}
                                     alt={product.title}
                                     className="h-full w-full object-cover object-center lg:h-full lg:w-full"
                                   />
@@ -360,13 +348,14 @@ export default function ProductList() {
                                   </div>
                                   <div>
                                     <p className="text-sm  block font-medium text-gray-900">
+                                      $
                                       {Math.round(
                                         product.price *
                                           (1 - product.discountPercentage / 100)
                                       )}
                                     </p>
                                     <p className="text-sm block line-through font-medium text-gray-400">
-                                      {product.price}
+                                      ${product.price}
                                     </p>
                                   </div>
                                 </div>

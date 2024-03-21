@@ -12,7 +12,7 @@ class ProductService {
   async getProducts() {
     try {
       const products = await this.productRepository.getAll();
-      console.log("products", products);
+      
       return products;
     } catch (error) {
       console.log("Something went wrong in the service layer");
