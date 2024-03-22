@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import Brand from "./Brand.js";
 const ProductSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -36,8 +36,9 @@ const ProductSchema = new mongoose.Schema({
   },
   brand: {
     type: String,
-    //required: true,
+    // required: true,
   },
+
   category: {
     type: String,
     //required: true,
@@ -66,6 +67,20 @@ ProductSchema.set("toJSON", {
   transform: function (doc, ret) {
     delete ret._id;
   },
+});
+ProductSchema.post("save", async function (doc, next) {
+  try {
+    const Brand = mongoose.model("Brand");
+    const existingBrand = await Brand.findOne({ label: doc.brand });
+
+    if (!existingBrand) {
+      await Brand.create({ label: doc.brand });
+    }
+
+    next();
+  } catch (error) {
+    next(error);
+  }
 });
 const Product = mongoose.model("Product", ProductSchema);
 

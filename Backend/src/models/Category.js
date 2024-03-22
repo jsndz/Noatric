@@ -7,8 +7,8 @@ const CategorySchema = new mongoose.Schema({
   },
   value: {
     type: String,
-    required: true,
-  }
+    // required: true,
+  },
 });
 
 const virtual = CategorySchema.virtual("id");

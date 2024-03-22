@@ -13,6 +13,8 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProductsAsync, selectAllProducts } from "../productSlice";
+import { fetchAllBrandsAsync, selectAllBrands } from "../brandSlice";
+import { fetchAllCategoriesAsync, selectAllCategories } from "../categorySlice";
 
 const sortOptions = [
   { name: "Most Popular", href: "#", current: true },
@@ -20,32 +22,6 @@ const sortOptions = [
   { name: "Newest", href: "#", current: false },
   { name: "Price: Low to High", href: "#", current: false },
   { name: "Price: High to Low", href: "#", current: false },
-];
-
-const filters = [
-  {
-    id: "Brand",
-    name: "Brand",
-    options: [
-      { value: "white", label: "White", checked: false },
-      { value: "beige", label: "Beige", checked: false },
-      { value: "blue", label: "Blue", checked: true },
-      { value: "brown", label: "Brown", checked: false },
-      { value: "green", label: "Green", checked: false },
-      { value: "purple", label: "Purple", checked: false },
-    ],
-  },
-  {
-    id: "category",
-    name: "Category",
-    options: [
-      { value: "new-arrivals", label: "New Arrivals", checked: false },
-      { value: "sale", label: "Sale", checked: false },
-      { value: "travel", label: "Travel", checked: true },
-      { value: "organization", label: "Organization", checked: false },
-      { value: "accessories", label: "Accessories", checked: false },
-    ],
-  },
 ];
 
 function classNames(...classes) {
@@ -56,8 +32,30 @@ export default function ProductList() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
+    dispatch(fetchAllBrandsAsync());
+    dispatch(fetchAllCategoriesAsync());
   }, []);
   const products = useSelector(selectAllProducts);
+  const brands = useSelector(selectAllBrands);
+  const categories = useSelector((state) => state.category.Categories);
+  const filters = [
+    {
+      id: "Brand",
+      name: "Brand",
+      options: brands.map((brand) => ({
+        value: brand.label,
+        label: brand.label,
+      })),
+    },
+    {
+      id: "category",
+      name: "Category",
+      options: categories.map((category) => ({
+        value: category.label,
+        label: category.label,
+      })),
+    },
+  ];
   return (
     <div className="bg-white">
       <div>
@@ -148,6 +146,9 @@ export default function ProductList() {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
+                                      onChange={(e) =>
+                                        handleFilter(section, option)
+                                      }
                                       className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                     />
                                     <label

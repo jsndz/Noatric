@@ -1,9 +1,6 @@
-// import express from "express";
-// import {
-//   createBrand,
-//   fetchAllBrand,
-// } from "../../controller/brand-controller.js";
-// const router = express.Router();
-// router.get("/brands", fetchAllBrand);
-// router.post("/brands", createBrand);
-// export default router;
+import express from "express";
+import { getBrands, createBrand } from "../../Controllers/Brand-controller.js";
+const router = express.Router();
+router.get("/brands", getBrands);
+router.post("/brands", createBrand);
+export default router;

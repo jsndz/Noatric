@@ -17,14 +17,14 @@ async function getProducts(req, res) {
     return res.status(201).json({
       data: products,
       success: true,
-      message: "successfully created a products",
+      message: "successfully returned a products",
       err: {},
     });
   } catch (error) {
     return res.status(500).json({
       data: {},
       success: false,
-      message: "couldn't create a products",
+      message: "couldn't return a products",
       err: { error },
     });
   }

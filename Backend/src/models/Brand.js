@@ -4,11 +4,12 @@ const BrandSchema = new mongoose.Schema({
   label: {
     type: String,
     required: true,
+    unique: true,
   },
   value: {
     type: String,
-    required: true,
-  }
+    // required: true,
+  },
 });
 
 const virtual = BrandSchema.virtual("id");
