@@ -69,6 +69,12 @@ export function Checkout() {
   const orderId = useSelector(selectOrderId);
   const currentOrder = useSelector(selectCurrentOrder);
   const handleOrder = () => {
+    if (!selectedAddress) {
+      // Display an error message or handle it in any way you prefer
+      alert("Please select an address before placing the order.");
+      return;
+    }
+
     dispatch(createOrderAsync(orderData));
   };
 

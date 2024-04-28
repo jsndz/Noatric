@@ -27,6 +27,15 @@ export function AdminProductDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const product = useSelector(selectProduct);
+  const handleDelete = () => {
+    const confirmation = window.confirm(
+      "Are you sure you want to delete this product?"
+    );
+    if (confirmation) {
+      dispatch(deleteProductAsync(id));
+      navigate("/admin");
+    }
+  };
 
   useEffect(() => {
     dispatch(fetchProductsByIdAsync(id));
@@ -149,10 +158,7 @@ export function AdminProductDetails() {
                 Edit Product
               </button>
               <button
-                onClick={() => {
-                  dispatch(deleteProductAsync(id));
-                  navigate("/admin");
-                }}
+                onClick={handleDelete}
                 className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
                 Delete Product

@@ -92,9 +92,11 @@ function Login() {
                 />
               </div>
               <p className="text-red-500 ">{error}</p>
-              <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
-                <a href="#">Forgot your password?</a>
-              </div>
+              <Link to="/reset-password">
+                <div className="text-right text-gray-400 hover:underline hover:text-gray-100">
+                  <button>Forgot your password?</button>
+                </div>
+              </Link>
               <div className="px-4 pb-2 pt-4">
                 <button
                   type="submit"

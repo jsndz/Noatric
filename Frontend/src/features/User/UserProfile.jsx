@@ -25,8 +25,13 @@ function UserProfile() {
   const user = useSelector(selectUserInfo);
   const [indexing, setIndexing] = useState(-1);
   const handleRemove = async (index) => {
-    await dispatch(removeAddressAsync(index));
-    await dispatch(getUserInfoAsync());
+    const confirmation = await window.confirm(
+      "Are you sure you want to remove this Address?"
+    );
+    if (confirmation) {
+      await dispatch(removeAddressAsync(index));
+      await dispatch(getUserInfoAsync());
+    }
   };
   const handleIndexing = async (index) => {
     await setIndexing(index);

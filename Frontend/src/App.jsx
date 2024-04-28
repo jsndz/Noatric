@@ -26,6 +26,7 @@ import AdminProductListPage from "./pages/AdminProductListPage";
 import AdminProductDetailsPage from "./pages/AdminProductDetailsPage";
 import AdminOrderPage from "./pages/AdminOrderPage";
 import StripeCheckout from "./pages/StripeCheckout";
+import ResetPassword from "./pages/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
         <StripeCheckout></StripeCheckout>
       </Protected>
     ),
+  },
+  {
+    path: "/reset-password",
+    element: <ResetPassword></ResetPassword>,
   },
 ]);
 
