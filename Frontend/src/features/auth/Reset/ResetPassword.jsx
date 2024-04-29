@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { resetPasswordAsync, selectError } from "../authSlice";
 
 function ResetPassword() {
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const handleReset = (e) => {
+    e.preventDefault();
+    dispatch(resetPasswordAsync(email));
+  };
+  const error = useSelector(selectError);
   return (
     <div>
       <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
@@ -15,11 +24,17 @@ function ResetPassword() {
                 id="email"
                 name="email"
                 type="email"
+                value={email}
                 className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-slate-500 hover:shadow"
                 placeholder="Enter email address"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </label>
-            <button className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center">
+            <p className="text-red-500 ">{error}</p>
+            <button
+              onClick={handleReset}
+              className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

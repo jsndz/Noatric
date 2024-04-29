@@ -65,6 +65,14 @@ UserSchema.methods.comparePassword = function (password) {
   return compareSync(password, this.password);
 };
 
+UserSchema.methods.resetPassword = async function (password) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  this.password = hashedPassword;
+
+  await this.save();
+};
+
 UserSchema.methods.genJwt = function () {
   const payload = {
     email: this.email,

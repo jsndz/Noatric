@@ -20,7 +20,7 @@ export const checkUser = async (data) => {
     );
     return response.data.data;
   } catch (error) {
-    console.log("Error in creating user", error);
+    console.log("Error in login of user", error);
     throw error;
   }
 };
@@ -74,5 +74,27 @@ export const editAddress = async (index, address) => {
     return response.data;
   } catch (error) {
     console.log("Error in editing Address", error);
+  }
+};
+
+export const resetPassword = async (email) => {
+  try {
+    const response = await axios.post(
+      `https://localhost:3000/api/v1/auth/reset-password/${email}`
+    );
+    return response.data.data;
+  } catch (error) {
+    console.log("Eror", error.response.data);
+  }
+};
+export const setPassword = async (userData) => {
+  try {
+    const response = await axios.post(
+      `https://localhost:3000/api/v1/auth/reset-password/`,
+      userData
+    );
+    return response.data;
+  } catch (error) {
+    console.log("Eror", error.response.data);
   }
 };

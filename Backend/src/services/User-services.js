@@ -49,13 +49,11 @@ class UserService {
           message: "Incorrect password",
         };
       }
-
       const token = await user.genJwt(user);
-
       const cartId = user.cart;
       return { token, cartId };
     } catch (error) {
-      console.log("Something went wrong in  hService layer", error);
+      console.log("Something went wrong in  Service layer", error);
       throw error;
     }
   }

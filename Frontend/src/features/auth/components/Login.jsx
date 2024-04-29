@@ -104,7 +104,7 @@ function Login() {
                 >
                   sign in
                 </button>
-              </div>
+              </div>{" "}
               <div className="text-gray-600">
                 <p className="inline">Not a member?</p>
                 <span className="inline-block ml-2">

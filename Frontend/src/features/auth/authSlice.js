@@ -9,6 +9,8 @@ import {
   getUserInfo,
   removeAddress,
   editAddress,
+  resetPassword,
+  setPassword,
 } from "./authAPI";
 import { setCartId } from "../Cart/cartSlice";
 const initialState = {
@@ -123,6 +125,37 @@ export const editAddressAsync = createAsyncThunk(
   }
 );
 
+export const resetPasswordAsync = createAsyncThunk(
+  "user/resetPassword",
+  async (email, thunkAPI) => {
+    try {
+      const response = await resetPassword(email);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error("Error ddd", error);
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error);
+      } else {
+        return thunkAPI.rejectWithValue("Unknown error occurred");
+      }
+    }
+  }
+);
+
+export const setPasswordAsync = createAsyncThunk(
+  "user/setPassword",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await setPassword(userData);
+      return response;
+    } catch (error) {
+      console.error("Error set Password ", error);
+      return thunkAPI.rejectWithValue("Something is wrong with API ");
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -204,6 +237,25 @@ export const userSlice = createSlice({
         state.address = action.payload;
       })
       .addCase(editAddressAsync.rejected, (state, action) => {
+        state.status = "idle";
+      })
+      .addCase(resetPasswordAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(resetPasswordAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+      })
+      .addCase(resetPasswordAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.payload;
+      })
+      .addCase(setPasswordAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(setPasswordAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+      })
+      .addCase(setPasswordAsync.rejected, (state, action) => {
         state.status = "idle";
       });
   },
