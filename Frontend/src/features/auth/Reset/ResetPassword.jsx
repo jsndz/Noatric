@@ -5,10 +5,12 @@ import { resetPasswordAsync, selectError } from "../authSlice";
 
 function ResetPassword() {
   const dispatch = useDispatch();
+  const [msg, setMsg] = useState(false);
   const [email, setEmail] = useState("");
   const handleReset = (e) => {
     e.preventDefault();
     dispatch(resetPasswordAsync(email));
+    setMsg(true);
   };
   const error = useSelector(selectError);
   return (
@@ -53,10 +55,7 @@ function ResetPassword() {
             </button>
             <p className="text-center">
               Not registered yet?{" "}
-              <a
-                href="#"
-                className="text-indigo-600 font-medium inline-flex space-x-1 items-center"
-              >
+              <p className="text-indigo-600 font-medium inline-flex space-x-1 items-center">
                 <Link to="/signup">Register now </Link>
                 <span>
                   <svg
@@ -74,7 +73,12 @@ function ResetPassword() {
                     />
                   </svg>
                 </span>
-              </a>
+              </p>
+              {msg && (
+                <p className="text-green-500">
+                  A reset link has been sent to your email
+                </p>
+              )}
             </p>
           </div>
         </form>

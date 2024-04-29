@@ -1,8 +1,9 @@
 import React from "react";
 import Logo from "/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { selectToken, setPasswordAsync } from "../authSlice";
 function SetPassword() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -12,9 +13,11 @@ function SetPassword() {
     watch,
     formState: { errors },
   } = useForm();
+  const token = useSelector(selectToken);
   return (
     <div>
       {" "}
+      {token && <Navigate to="/" />}
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <a
@@ -34,7 +37,12 @@ function SetPassword() {
               className="mt-4 space-y-4 lg:mt-5 md:space-y-5"
               onSubmit={handleSubmit((data) => {
                 dispatch(
-                  loginUserAsync({ email: data.email, password: data.password })
+                  setPasswordAsync({
+                    email: data.email,
+                    password: data.password,
+                    token: id,
+                    confirmPassword: data["confirm-password"],
+                  })
                 );
               })}
             >
@@ -72,6 +80,13 @@ function SetPassword() {
                   id="password"
                   {...register("password", {
                     required: "Password is Required",
+                    pattern: {
+                      value:
+                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                      message: `- at least 8 characters\n
+- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
+- Can contain special characters`,
+                    },
                   })}
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"

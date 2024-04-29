@@ -93,6 +93,7 @@ export const setPassword = async (userData) => {
       `https://localhost:3000/api/v1/auth/reset-password/`,
       userData
     );
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("Eror", error.response.data);

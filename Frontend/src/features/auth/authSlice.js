@@ -148,7 +148,7 @@ export const setPasswordAsync = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await setPassword(userData);
-      return response;
+      return response.data;
     } catch (error) {
       console.error("Error set Password ", error);
       return thunkAPI.rejectWithValue("Something is wrong with API ");
@@ -254,6 +254,7 @@ export const userSlice = createSlice({
       })
       .addCase(setPasswordAsync.fulfilled, (state, action) => {
         state.status = "idle";
+        state.access_token = action.payload;
       })
       .addCase(setPasswordAsync.rejected, (state, action) => {
         state.status = "idle";

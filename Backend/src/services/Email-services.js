@@ -13,22 +13,22 @@ export const sendEmail = async (req, res) => {
         message: "Incorrect email",
       };
     }
-    const secret = JWT_SECRET + user.password;
+    const secret = JWT_SECRET;
 
     const payload = {
       email: user.email,
       id: user._id,
     };
-    const token = jwt.sign(payload, secret, { expiresIn: "15m" });
+    const token = await jwt.sign(payload, secret, { expiresIn: "15m" });
     const link = `https://localhost:5173/reset-password/${token}`;
-    // await Sender.sendMail({
-    //   from: mailFrom,
-    //   to: mailTo,
-    //   subject: mailSubject,
-    //   text: link,
-    // });
+    await Sender.sendMail({
+      from: "Noatric Team <",
+      to: mailTo,
+      subject: "Reset Password",
+      text: link,
+    });
     return res.status(201).json({
-      data: link,
+      data: {},
       success: true,
       message: "successfully sent a mail ",
       err: {},
@@ -48,6 +48,7 @@ export const getToken = async (req, res) => {
   try {
     const token = req.body.token;
     const newPassword = req.body.password;
+    console.log(newPassword);
     const mail = req.body.email;
     const user = await getUserFromMail(mail);
     if (user === null) {
@@ -55,14 +56,14 @@ export const getToken = async (req, res) => {
         message: "Incorrect email",
       };
     }
-    const secret = JWT_SECRET + user.password;
-    const decoded = jwt.verify(token, secret);
+    const secret = JWT_SECRET;
+    const decoded = await jwt.verify(token, secret);
     if (!decoded) {
       throw {
         message: "Invalid token",
       };
     }
-    user.resetPassword(newPassword);
+    await user.resetPassword(newPassword);
 
     const jwtToken = await user.genJwt(user);
     return res.status(201).json({
@@ -72,6 +73,7 @@ export const getToken = async (req, res) => {
       err: {},
     });
   } catch (error) {
+    console.log(error);
     return res.status(500).json({
       data: {},
       success: false,

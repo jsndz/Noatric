@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "../config/serverconfig.js";
 import Cart from "./Cart.js";
-
+import bcrypt from "bcrypt";
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
@@ -62,14 +62,14 @@ UserSchema.pre("save", function (next) {
 });
 
 UserSchema.methods.comparePassword = function (password) {
+  const SALT = genSaltSync(10);
+  this.password = hashSync(password, SALT);
+  console.log(password, this.password);
   return compareSync(password, this.password);
 };
 
 UserSchema.methods.resetPassword = async function (password) {
-  const hashedPassword = await bcrypt.hash(password, 10);
-
-  this.password = hashedPassword;
-
+  this.password = password;
   await this.save();
 };
 
