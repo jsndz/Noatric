@@ -7,6 +7,7 @@ import {
   removeAddressAsync,
   selectUserInfo,
   addAddressAsync,
+  setNameAsync,
 } from "../auth/authSlice";
 
 function UserProfile() {
@@ -38,6 +39,13 @@ function UserProfile() {
   };
   const handleEdit = async () => {
     await setEdit((prevEdit) => !prevEdit);
+  };
+  const handleProfile = async () => {
+    const name = prompt("Please enter your name", user.name);
+    if (name != null) {
+      await dispatch(setNameAsync(name));
+      await dispatch(getUserInfoAsync());
+    }
   };
   return (
     user && (
@@ -78,8 +86,11 @@ function UserProfile() {
                   </div>
                 </div>
                 <div className="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-                  <button className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
-                    Connect
+                  <button
+                    onClick={handleProfile}
+                    className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                  >
+                    Edit Profile
                   </button>
                   <button className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
                     Message
@@ -88,7 +99,7 @@ function UserProfile() {
               </div>
               <div className="mt-20 text-center border-b pb-12">
                 <h1 className="text-4xl font-medium text-gray-700">
-                  {user.email}
+                  {user.name || "Name"}
                 </h1>
                 <p className="font-light text-gray-600 mt-3">
                   Bucharest, Romania
@@ -102,12 +113,7 @@ function UserProfile() {
               </div>
             </div>
           </div>
-          <p>
-            <strong>Name:</strong>
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
+
           <h2 className="text-lg font-semibold mt-4">Addresses:</h2>
           {user.addresses.length === 0 ? (
             <form
@@ -526,10 +532,6 @@ function UserProfile() {
               </div>
             </form>
           )}
-
-          <p>
-            <strong>Cart ID:</strong> {user.cart}
-          </p>
         </div>
       </div>
     )

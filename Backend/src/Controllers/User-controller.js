@@ -151,6 +151,27 @@ const editAddress = async (req, res) => {
   }
 };
 
+const editName = async (req, res) => {
+  try {
+    const userService = new UserService();
+    const name = req.params.name;
+    const user = await userService.editName(req.user.email, name);
+    return res.status(201).json({
+      data: user,
+      message: "Successfully changed name",
+      success: true,
+      err: {},
+    });
+  } catch (error) {
+    res.status(500).json({
+      data: {},
+      message: "Couldn't changed name",
+      success: false,
+      err: error.message,
+    });
+  }
+};
+
 export {
   createUser,
   LoginUser,
@@ -159,4 +180,5 @@ export {
   getUserInfo,
   removeAddress,
   editAddress,
+  editName,
 };

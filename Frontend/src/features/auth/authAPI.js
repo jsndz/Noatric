@@ -99,3 +99,15 @@ export const setPassword = async (userData) => {
     console.log("Eror", error.response.data);
   }
 };
+
+export const setName = async (name) => {
+  try {
+    const response = await axios.patch(
+      `https://localhost:3000/api/v1/user/edit-name/${name}`
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log("Eror", error.response.data);
+  }
+};

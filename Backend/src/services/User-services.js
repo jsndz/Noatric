@@ -110,6 +110,15 @@ class UserService {
       throw error;
     }
   }
+  async editName(email, name) {
+    try {
+      const user = await this.userRepository.editName(email, name);
+      return user;
+    } catch (error) {
+      console.log("Something went wrong in Service layer");
+      throw error;
+    }
+  }
 }
 
 export default UserService;

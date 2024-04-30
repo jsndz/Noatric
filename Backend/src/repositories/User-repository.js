@@ -69,5 +69,17 @@ class UserRepository extends CrudRepository {
       throw error;
     }
   };
+  editName = async (email, name) => {
+    try {
+      const user = await User.findOne({ email: email });
+
+      user.name = name;
+      await user.save();
+      return user;
+    } catch (error) {
+      console.log("Something went wrong in the crud layer", error);
+      throw error;
+    }
+  };
 }
 export default UserRepository;

@@ -11,6 +11,7 @@ import {
   editAddress,
   resetPassword,
   setPassword,
+  setName,
 } from "./authAPI";
 import { setCartId } from "../Cart/cartSlice";
 const initialState = {
@@ -156,6 +157,19 @@ export const setPasswordAsync = createAsyncThunk(
   }
 );
 
+export const setNameAsync = createAsyncThunk(
+  "user/setName",
+  async (name, thunkAPI) => {
+    try {
+      const response = await setName(name);
+      return response.data;
+    } catch (error) {
+      console.error("Error in setting name ", error);
+      return thunkAPI.rejectWithValue("Something is wrong with API ");
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -257,6 +271,16 @@ export const userSlice = createSlice({
         state.access_token = action.payload;
       })
       .addCase(setPasswordAsync.rejected, (state, action) => {
+        state.status = "idle";
+      })
+      .addCase(setNameAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(setNameAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.userInfo = action.payload;
+      })
+      .addCase(setNameAsync.rejected, (state, action) => {
         state.status = "idle";
       });
   },
