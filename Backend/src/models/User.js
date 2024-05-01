@@ -62,9 +62,7 @@ UserSchema.pre("save", function (next) {
 });
 
 UserSchema.methods.comparePassword = function (password) {
-  const SALT = genSaltSync(10);
-  this.password = hashSync(password, SALT);
-  return compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.password);
 };
 
 UserSchema.methods.resetPassword = async function (password) {

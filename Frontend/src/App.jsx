@@ -30,7 +30,7 @@ import AdminOrderPage from "./pages/AdminOrderPage";
 import StripeCheckout from "./pages/StripeCheckout";
 import ResetPasswordReq from "./pages/ResetPasswordReq";
 import SetPasswordPage from "./pages/SetPasswordPage";
-import { AuthHeaderSet } from "./features/auth/authSlice";
+import { AuthHeaderSet, resetError } from "./features/auth/authSlice";
 
 const router = createBrowserRouter([
   {
@@ -147,6 +147,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AuthHeaderSet());
+    dispatch(resetError());
   }, []);
   return (
     <>

@@ -63,8 +63,8 @@ export default function CheckoutForm() {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        // Make sure to change this to your payment completion page
-        return_url: `https://localhost:5173/order-success/${currentOrder.id}`,
+        // Change HTTPS to HTTP here
+        return_url: `http://localhost:5173/order-success/${currentOrder.id}`,
       },
     });
 
@@ -99,6 +99,7 @@ export default function CheckoutForm() {
     </form>
   );
 }
+
 // import React, { useEffect, useState } from "react";
 // import {
 //   PaymentElement,

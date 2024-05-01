@@ -218,6 +218,9 @@ export const userSlice = createSlice({
         delete axios.defaults.headers.common["Authorization"];
       }
     },
+    resetError: (state) => {
+      state.error = null;
+    },
   },
 
   extraReducers: (builder) => {
@@ -324,7 +327,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { AuthSignOut, AuthHeaderSet } = userSlice.actions;
+export const { AuthSignOut, AuthHeaderSet, resetError } = userSlice.actions;
 
 export const selectUser = (state) => state.user;
 export const selectError = (state) => state.user.error;

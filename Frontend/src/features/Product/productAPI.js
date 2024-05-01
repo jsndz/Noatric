@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function fetchAllProducts() {
-  const apiUrl = "https://localhost:3000/api/v1/products";
+  const apiUrl = "http://localhost:3000/api/v1/products";
   try {
     const response = await axios.get(apiUrl);
     return response.data;
@@ -11,7 +11,7 @@ export async function fetchAllProducts() {
 }
 
 export async function fetchAllBrands() {
-  const apiUrl = "https://localhost:3000/api/v1/brands";
+  const apiUrl = "http://localhost:3000/api/v1/brands";
   try {
     const response = await axios.get(apiUrl);
     return response.data;
@@ -21,7 +21,7 @@ export async function fetchAllBrands() {
 }
 
 export async function fetchAllCategories() {
-  const apiUrl = "https://localhost:3000/api/v1/categories";
+  const apiUrl = "http://localhost:3000/api/v1/categories";
   try {
     const response = await axios.get(apiUrl);
 
@@ -31,7 +31,7 @@ export async function fetchAllCategories() {
   }
 }
 export async function fetchAllProductsById(id) {
-  const apiUrl = `https://localhost:3000/api/v1/products/${id}`;
+  const apiUrl = `http://localhost:3000/api/v1/products/${id}`;
   try {
     const response = await axios.get(apiUrl);
     return response.data;
@@ -40,7 +40,7 @@ export async function fetchAllProductsById(id) {
   }
 }
 export async function fetchProductsByFilters(filter, pagin) {
-  const apiUrl = "https://localhost:3000/api/v1/productsByFilter";
+  const apiUrl = "http://localhost:3000/api/v1/productsByFilter";
   const params = new URLSearchParams(filter);
   if (pagin) {
     params.append("page", pagin.page);
@@ -59,7 +59,7 @@ export async function fetchProductsByFilters(filter, pagin) {
 export async function editProduct(id, data) {
   try {
     const response = await axios.patch(
-      `https://localhost:3000/api/v1/product/${id}`,
+      `http://localhost:3000/api/v1/product/${id}`,
       data
     );
     return response.data;
@@ -70,7 +70,7 @@ export async function editProduct(id, data) {
 export async function createProduct(data) {
   try {
     const response = await axios.post(
-      `https://localhost:3000/api/v1/product`,
+      `http://localhost:3000/api/v1/product`,
       data
     );
     return response.data;
@@ -81,7 +81,7 @@ export async function createProduct(data) {
 export async function deleteProduct(id) {
   try {
     const response = await axios.delete(
-      `https://localhost:3000/api/v1/product/${id}`
+      `http://localhost:3000/api/v1/product/${id}`
     );
     return response.data;
   } catch (error) {
