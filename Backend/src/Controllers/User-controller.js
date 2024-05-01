@@ -3,9 +3,9 @@ import UserService from "../services/User-services.js";
 async function createUser(req, res) {
   try {
     const userService = new UserService();
-    console.log("hi");
+
     const user = await userService.createUser(req.body);
-    console.log(user);
+
     res.cookie("token", user.token, {
       expires: new Date(Date.now() + 900000),
     });

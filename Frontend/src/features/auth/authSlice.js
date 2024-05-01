@@ -139,7 +139,7 @@ export const resetPasswordAsync = createAsyncThunk(
   async (email, thunkAPI) => {
     try {
       const response = await resetPassword(email);
-      console.log(response);
+
       return response;
     } catch (error) {
       console.error("Error ddd", error);
@@ -184,19 +184,15 @@ export const AuthHeaderSetAsync = createAsyncThunk(
     try {
       const token = Cookies.get("token");
       if (token) {
-        console.log("Found token:", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-        // Fetch cartId from the API and update the store
         const response = await getCartId();
         thunkAPI.dispatch(setCartId(response.cartId));
       } else {
-        console.log("No token found");
         delete axios.defaults.headers.common["Authorization"];
       }
     } catch (error) {
       console.error("Error setting authorization header:", error);
-      // Handle errors if needed
     }
   }
 );

@@ -49,7 +49,6 @@ export const sendEmail = async (req, res) => {
       err: {},
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({
       data: {},
       success: false,
@@ -63,7 +62,7 @@ export const getToken = async (req, res) => {
   try {
     const token = req.body.token;
     const newPassword = req.body.password;
-    console.log(newPassword);
+
     const mail = req.body.email;
     const user = await getUserFromMail(mail);
     if (user === null) {

@@ -26,7 +26,7 @@ export const createOrderAsync = createAsyncThunk(
   async (orderData, thunkAPI) => {
     try {
       const response = await createOrder(orderData);
-      console.log(response);
+
       return response.data;
     } catch (error) {
       console.error("Error creating order:", error);
@@ -40,7 +40,6 @@ export const fetchOrderAsync = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await fetchOrder();
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -67,7 +66,6 @@ export const fetchOrderItemsAsync = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await fetchOrderItems();
-      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching orders:", error);

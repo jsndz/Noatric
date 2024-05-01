@@ -48,7 +48,6 @@ function UserProfile() {
       await dispatch(getUserInfoAsync());
     }
   };
-  console.log(user);
   const handleAddAddressClick = () => {
     setShowAddAddressForm((prevState) => !prevState);
   };

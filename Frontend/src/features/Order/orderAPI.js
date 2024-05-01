@@ -49,14 +49,13 @@ export const fetchOrderItems = async () => {
 
 export const getAllOrders = async ({ sort, pagin }) => {
   const params = new URLSearchParams();
-  console.log(sort);
+
   if (pagin) {
     params.append("_page", pagin.page);
     params.append("_limit", pagin.limit);
     params.append("_order", sort._order);
     params.append("_sort", sort._sort);
   }
-  console.log("params", params);
   try {
     const res = await axios.get(`https://localhost:3000/api/v1/allOrder`, {
       params,

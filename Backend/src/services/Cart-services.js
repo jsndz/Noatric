@@ -102,11 +102,9 @@ class CartService {
   async getCartID(email) {
     try {
       const userId = await getIdFromMail(email);
-      console.log("userId", userId);
-      console.log("typeof", typeof userId);
 
       const cartId = await this.cartRepository.getCID(userId);
-      console.log(cartId);
+
       return cartId;
     } catch (error) {
       console.log("Something went wrong in the service layer ", error);

@@ -37,13 +37,10 @@ export function Navbar() {
     dispatch(getCartIdAsync());
   }, []);
   useEffect(() => {
-    console.log(cartId);
-
     dispatch(getTotalProductsAsync(cartId));
     dispatch(getUserInfoAsync());
   }, [cartId, totalProducts]);
   const userInfo = useSelector(selectUserInfo);
-  console.log(cartId);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">

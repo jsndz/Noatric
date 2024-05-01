@@ -14,7 +14,6 @@ function ViewOrders({ order }) {
   }, [dispatch, order.id]);
 
   const products = useSelector(selectOrderItems);
-  console.log("products", products);
 
   return (
     <div>

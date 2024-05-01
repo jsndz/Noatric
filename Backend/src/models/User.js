@@ -64,7 +64,6 @@ UserSchema.pre("save", function (next) {
 UserSchema.methods.comparePassword = function (password) {
   const SALT = genSaltSync(10);
   this.password = hashSync(password, SALT);
-  console.log(password, this.password);
   return compareSync(password, this.password);
 };
 

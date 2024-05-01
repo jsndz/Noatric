@@ -37,7 +37,6 @@ export const getTotalProductsAsync = createAsyncThunk(
     try {
       const response = await getTotalProducts(cartId);
 
-      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching totalProducts:", error);

@@ -104,7 +104,6 @@ class OrderService {
     try {
       const id = orderData.id;
       const order = await this.orderRepository.updateOrder(id, orderData);
-      console.log(order);
     } catch (error) {
       console.log("Something went wrong in Service layer", error);
       throw { error };

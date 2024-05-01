@@ -45,7 +45,7 @@ function AdminOrderManagement() {
   // };
   const handleSort = (sortOption) => {
     const newSort = { _sort: sortOption.sort, _order: sortOption.order };
-    console.log({ newSort });
+
     setSort(newSort);
   };
 
