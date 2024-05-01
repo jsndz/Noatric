@@ -7,13 +7,14 @@ import {
   increaseQuantity,
   decreaseQuantity,
   emptyCart,
+  getCartId,
 } from "./cartAPI";
 import { useSelector } from "react-redux";
 
 const initialState = {
   items: [],
   status: "idle",
-  cartId: null,
+  cartId: localStorage.getItem("cartId") || null,
   totalProducts: 0,
 };
 
@@ -35,6 +36,8 @@ export const getTotalProductsAsync = createAsyncThunk(
   async (cartId, thunkAPI) => {
     try {
       const response = await getTotalProducts(cartId);
+
+      console.log("response.data", response.data);
       return response.data;
     } catch (error) {
       console.error("Error fetching totalProducts:", error);
@@ -104,6 +107,18 @@ export const emptyCartAsync = createAsyncThunk(
       return response.data;
     } catch (error) {
       console.error("Error in  emptying Cart:", error);
+      return thunkAPI.rejectWithValue("Something is wrong with API ");
+    }
+  }
+);
+export const getCartIdAsync = createAsyncThunk(
+  "cart/getCartId",
+  async (_, thunkAPI) => {
+    try {
+      const response = await getCartId();
+      return response.data;
+    } catch (error) {
+      console.error("Error in  getting cart id:", error);
       return thunkAPI.rejectWithValue("Something is wrong with API ");
     }
   }
@@ -190,6 +205,16 @@ export const cartSlice = createSlice({
         state.items = [];
       })
       .addCase(emptyCartAsync.rejected, (state, action) => {
+        state.status = "failed";
+      })
+      .addCase(getCartIdAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getCartIdAsync.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.cartId = action.payload;
+      })
+      .addCase(getCartIdAsync.rejected, (state, action) => {
         state.status = "failed";
       });
   },

@@ -43,7 +43,7 @@ const UserSchema = new Schema(
 UserSchema.pre("save", async function (next) {
   try {
     if (!this.cart) {
-      const cart = await Cart.create({ products: [] });
+      const cart = await Cart.create({ products: [], user: this._id });
       this.cart = cart._id;
     }
     next();

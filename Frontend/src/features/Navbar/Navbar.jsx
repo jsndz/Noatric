@@ -10,6 +10,7 @@ import Logo from "/logo.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getCartIdAsync,
   getTotalProductsAsync,
   selectCartId,
   selectTotalProducts,
@@ -32,12 +33,17 @@ export function Navbar() {
   const totalProducts = useSelector(selectTotalProducts);
   const cartId = useSelector(selectCartId);
   const dispatch = useDispatch();
-
   useEffect(() => {
+    dispatch(getCartIdAsync());
+  }, []);
+  useEffect(() => {
+    console.log(cartId);
+
     dispatch(getTotalProductsAsync(cartId));
     dispatch(getUserInfoAsync());
   }, [cartId, totalProducts]);
   const userInfo = useSelector(selectUserInfo);
+  console.log(cartId);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">

@@ -16,6 +16,16 @@ class CartRepository extends CrudRepository {
       throw { error };
     }
   }
+  async getCID(userID) {
+    try {
+      const cart = await Cart.findOne({ user: userID });
+
+      return cart._id;
+    } catch {
+      console.log("Something went wrong in the cart repository");
+      throw { error };
+    }
+  }
   async getTotalProducts(cartId) {
     try {
       const cart = await Cart.findById(cartId);

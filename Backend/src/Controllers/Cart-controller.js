@@ -152,6 +152,26 @@ async function emptyCart(req, res) {
     });
   }
 }
+async function getCartID(req, res) {
+  try {
+    const cartService = new CartService();
+    const Email = req.user.email;
+    const cartId = await cartService.getCartID(Email);
+    return res.status(201).json({
+      data: cartId,
+      success: true,
+      message: "successfully got cartId",
+      err: {},
+    });
+  } catch (error) {
+    return res.status(500).json({
+      data: {},
+      success: false,
+      message: "couldn't get cartId",
+      err: { error },
+    });
+  }
+}
 export {
   addCartItem,
   getTotalProducts,
@@ -160,4 +180,5 @@ export {
   increaseQuantity,
   decreaseQuantity,
   emptyCart,
+  getCartID,
 };

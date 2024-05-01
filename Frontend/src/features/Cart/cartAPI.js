@@ -77,3 +77,12 @@ export const emptyCart = async (cartId) => {
     console.log("Error in cart items", error);
   }
 };
+
+export const getCartId = async () => {
+  try {
+    const response = await axios.get(`https://localhost:3000/api/v1/cartId/`);
+    return response.data;
+  } catch (error) {
+    console.log("Error in cart id", error);
+  }
+};

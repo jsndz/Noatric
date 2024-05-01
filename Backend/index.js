@@ -40,10 +40,8 @@ app.use(express.raw({ type: "application/json" }));
 const stripe = Stripe(STRIPE_SK);
 app.post("/create-payment-intent", async (req, res) => {
   const { totalAmount, orderId } = req.body;
-  console.log("hillo");
-  // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: totalAmount * 100, // for decimal compensation
+    amount: totalAmount * 100,
     currency: "inr",
     automatic_payment_methods: {
       enabled: true,
@@ -60,8 +58,6 @@ app.post("/create-payment-intent", async (req, res) => {
 
 // Webhook
 
-// TODO: we will capture actual order after deploying out server live on public URL
-
 const endpointSecret =
   "whsec_3c806252812a062fa5afd52df7aea026ff64d8edbd4168a75b8055b7cb9d7df9";
 
@@ -72,7 +68,6 @@ app.post(
     const sig = request.headers["stripe-signature"];
 
     let event;
-    console.log("hi");
     try {
       event = stripe.webhooks.constructEvent(request.body, sig, endpointSecret);
     } catch (err) {
@@ -80,26 +75,22 @@ app.post(
       return;
     }
 
-    // Handle the event
     switch (event.type) {
       case "payment_intent.succeeded":
         const paymentIntentSucceeded = event.data.object;
         console.log({ paymentIntentSucceeded });
-        // Then define and call a function to handle the event payment_intent.succeeded
+
         break;
-      // ... handle other event types
+
       default:
         console.log(`Unhandled event type ${event.type}`);
     }
-
-    // Return a 200 response to acknowledge receipt of the event
     response.send();
   }
 );
 passportAuth(passport);
 app.use("/api", apiRoute);
 
-// Create an HTTPS server
 https.createServer(httpsOptions, app).listen(PORT, async () => {
   console.log(`server started at port ${PORT}`);
   await connect();

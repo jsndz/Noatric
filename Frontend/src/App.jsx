@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import ProductList from "./features/Product/component/ProductList";
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
-
 import {
   createBrowserRouter,
   RouterProvider,
@@ -16,7 +14,11 @@ import CheckoutPage from "./pages/CheckoutPage";
 import { PDetailPage } from "./pages/PDetailPage";
 import Protected from "./features/auth/components/Protected";
 import { useDispatch, useSelector } from "react-redux";
-import { getTotalProductsAsync, selectCartId } from "./features/Cart/cartSlice";
+import {
+  getCartIdAsync,
+  getTotalProductsAsync,
+  selectCartId,
+} from "./features/Cart/cartSlice";
 import Page404 from "./pages/Page404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -28,6 +30,7 @@ import AdminOrderPage from "./pages/AdminOrderPage";
 import StripeCheckout from "./pages/StripeCheckout";
 import ResetPasswordReq from "./pages/ResetPasswordReq";
 import SetPasswordPage from "./pages/SetPasswordPage";
+import { AuthHeaderSet } from "./features/auth/authSlice";
 
 const router = createBrowserRouter([
   {
@@ -141,6 +144,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(AuthHeaderSet());
+  }, []);
   return (
     <>
       <RouterProvider router={router} />

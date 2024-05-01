@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Cookies from "js-cookie";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addAddress,
@@ -14,6 +14,7 @@ import {
   setName,
 } from "./authAPI";
 import { setCartId } from "../Cart/cartSlice";
+import { getCartId } from "../Cart/cartAPI";
 const initialState = {
   access_token: null,
   address: [],
@@ -27,12 +28,13 @@ export const createUserAsync = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await createUser(userData);
-      axios.defaults.headers.common[
-        "Authorization"
-      ] = `Bearer ${response.token}`;
-
+      Cookies.set("token", response.token, {
+        expires: 7,
+        sameSite: "None",
+        secure: true,
+      });
       thunkAPI.dispatch(setCartId(response.cartId));
-
+      localStorage.setItem("cartId", response.cartId);
       return response;
     } catch (error) {
       console.error("Error fetching cart items:", error);
@@ -49,6 +51,12 @@ export const loginUserAsync = createAsyncThunk(
       axios.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${response.token}`;
+      Cookies.set("token", response.token, {
+        expires: 1 / 24,
+        sameSite: "None",
+        secure: true,
+      });
+      localStorage.setItem("cartId", response.cartId);
 
       thunkAPI.dispatch(setCartId(response.cartId));
       return response;
@@ -170,6 +178,29 @@ export const setNameAsync = createAsyncThunk(
   }
 );
 
+export const AuthHeaderSetAsync = createAsyncThunk(
+  "user/authHeaderSet",
+  async (_, thunkAPI) => {
+    try {
+      const token = Cookies.get("token");
+      if (token) {
+        console.log("Found token:", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        // Fetch cartId from the API and update the store
+        const response = await getCartId();
+        thunkAPI.dispatch(setCartId(response.cartId));
+      } else {
+        console.log("No token found");
+        delete axios.defaults.headers.common["Authorization"];
+      }
+    } catch (error) {
+      console.error("Error setting authorization header:", error);
+      // Handle errors if needed
+    }
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState,
@@ -179,6 +210,17 @@ export const userSlice = createSlice({
       state.access_token = null;
       state.address = [];
       state.userInfo = null;
+      Cookies.remove("token");
+      localStorage.removeItem("cartId");
+    },
+    AuthHeaderSet: (state) => {
+      const token = Cookies.get("token");
+      if (token) {
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        state.access_token = token;
+      } else {
+        delete axios.defaults.headers.common["Authorization"];
+      }
     },
   },
 
@@ -286,7 +328,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { AuthSignOut } = userSlice.actions;
+export const { AuthSignOut, AuthHeaderSet } = userSlice.actions;
 
 export const selectUser = (state) => state.user;
 export const selectError = (state) => state.user.error;

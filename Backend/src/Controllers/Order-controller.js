@@ -143,7 +143,6 @@ async function allOrders(req, res) {
       });
     }
 
-    console.log(req.query);
     const totalDocs = allOrders.length;
 
     if (req.query._page && req.query._limit) {
@@ -219,7 +218,6 @@ async function updateOrderStatus(req, res) {
   try {
     const orderService = new OrderService();
     const newOrder = req.body;
-    console.log(newOrder);
     const order = await orderService.updateOrder(newOrder);
     return res.status(201).json({
       data: order,

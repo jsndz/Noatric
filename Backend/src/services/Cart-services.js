@@ -2,6 +2,7 @@ import CartRepository from "../repositories/Cart-repository.js";
 import ProductRepository from "../repositories/Product-repository.js";
 
 import Cart from "../models/Cart.js";
+import { getIdFromMail, getUserFromMail } from "../middlewares/functions.js";
 class CartService {
   constructor() {
     this.cartRepository = new CartRepository();
@@ -93,6 +94,20 @@ class CartService {
     try {
       const isEmpty = await this.cartRepository.emptyCart(cartId);
       return isEmpty;
+    } catch (error) {
+      console.log("Something went wrong in the service layer ", error);
+      throw error;
+    }
+  }
+  async getCartID(email) {
+    try {
+      const userId = await getIdFromMail(email);
+      console.log("userId", userId);
+      console.log("typeof", typeof userId);
+
+      const cartId = await this.cartRepository.getCID(userId);
+      console.log(cartId);
+      return cartId;
     } catch (error) {
       console.log("Something went wrong in the service layer ", error);
       throw error;

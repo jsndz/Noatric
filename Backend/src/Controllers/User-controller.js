@@ -6,6 +6,9 @@ async function createUser(req, res) {
     console.log("hi");
     const user = await userService.createUser(req.body);
     console.log(user);
+    res.cookie("token", user.token, {
+      expires: new Date(Date.now() + 900000),
+    });
     return res.status(201).json({
       data: user,
       success: true,
@@ -26,6 +29,7 @@ const LoginUser = async (req, res) => {
   try {
     const userService = new UserService();
     const user = await userService.login(req.body.email, req.body.password);
+
     return res.status(201).json({
       data: user,
       message: "Successfully found User",
