@@ -31,7 +31,8 @@ import StripeCheckout from "./pages/StripeCheckout";
 import ResetPasswordReq from "./pages/ResetPasswordReq";
 import SetPasswordPage from "./pages/SetPasswordPage";
 import { AuthHeaderSet, resetError } from "./features/auth/authSlice";
-
+import OrderSuccessCard from "./features/Order/OrderSuccessCard";
+import CardSucess from "./pages/CardSucess";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -82,6 +83,14 @@ const router = createBrowserRouter([
     element: (
       <Protected>
         <OrderSuccessPage></OrderSuccessPage>
+      </Protected>
+    ),
+  },
+  {
+    path: "/order-success/:id?payment_intent=:payment_intent&payment_intent_client_secret=:payment_intent_client_secret&redirect_status=:redirect_status",
+    element: (
+      <Protected>
+        <OrderSuccessCard></OrderSuccessCard>
       </Protected>
     ),
   },
@@ -140,6 +149,10 @@ const router = createBrowserRouter([
   {
     path: "/reset-password/:id",
     element: <SetPasswordPage></SetPasswordPage>,
+  },
+  {
+    path: "/cardSuccess",
+    element: <CardSucess></CardSucess>,
   },
 ]);
 

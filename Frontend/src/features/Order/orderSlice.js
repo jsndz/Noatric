@@ -124,6 +124,10 @@ export const orderSlice = createSlice({
     totalOrders: (state, action) => {
       state.totalOrders = action.payload;
     },
+    clearOrder: (state) => {
+      state.currentOrder = null;
+      state.currentOrderId = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -207,7 +211,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { OrSignOut, totalOrders } = orderSlice.actions;
+export const { OrSignOut, totalOrders, clearOrder } = orderSlice.actions;
 
 export const selectOrders = (state) => state.order.orders;
 export const selectOrderStatus = (state) => state.order.status;

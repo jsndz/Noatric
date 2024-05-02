@@ -9,6 +9,7 @@ import {
   decreaseQuantityAsync,
 } from "./cartSlice";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import { clearOrder } from "../Order/orderSlice";
 
 export function Cart() {
   const [open, setOpen] = useState(true);
@@ -18,7 +19,9 @@ export function Cart() {
   useEffect(() => {
     dispatch(getAllCartItemsAsync(cartId));
   }, [dispatch, cartId]);
-
+  useEffect(() => {
+    dispatch(clearOrder());
+  }, []);
   const products = useSelector(selectItems);
 
   const totalPrice = useMemo(() => {

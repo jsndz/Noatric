@@ -19,6 +19,7 @@ import {
   getOrderAsync,
   selectCurrentOrder,
   selectOrderId,
+  clearOrder,
 } from "../Order/orderSlice";
 
 export function Checkout() {
@@ -36,9 +37,7 @@ export function Checkout() {
   useEffect(() => {
     dispatch(getAllCartItemsAsync(cartId));
     dispatch(getAddressesAsync());
-    // if (orderId) {
-    //   dispatch(getOrderAsync(orderId));
-    // }
+    dispatch(clearOrder());
   }, [dispatch, cartId]);
 
   const products = useSelector(selectItems);
@@ -68,12 +67,13 @@ export function Checkout() {
   };
   const orderId = useSelector(selectOrderId);
   const currentOrder = useSelector(selectCurrentOrder);
-  const handleOrder = () => {
+  const handleOrder = async () => {
     if (!selectedAddress) {
       // Display an error message or handle it in any way you prefer
       alert("Please select an address before placing the order.");
       return;
     }
+    await dispatch(emptyCartAsync(cartId));
 
     dispatch(createOrderAsync(orderData));
   };
