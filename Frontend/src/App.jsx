@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+
 import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
@@ -33,6 +33,7 @@ import SetPasswordPage from "./pages/SetPasswordPage";
 import { AuthHeaderSet, resetError } from "./features/auth/authSlice";
 import OrderSuccessCard from "./features/Order/OrderSuccessCard";
 import CardSucess from "./pages/CardSucess";
+import LandingPage from "./features/Landing/LandingPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         <Home />
       </Protected>
     ),
+  },
+  {
+    path: "/home",
+    element: <LandingPage></LandingPage>,
   },
   {
     path: "/login",
