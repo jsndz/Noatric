@@ -35,6 +35,11 @@ import {
   twitter,
   yourlogo,
 } from "../../../assets";
+import alien from "../../../assets/category/alien.png";
+import suit from "../../../assets/category/astronaut.png";
+import weapon from "../../../assets/category/rifle.png";
+import bot from "../../../assets/category/space-robot.png";
+import ufo from "../../../assets/category/ufo.png";
 
 export const navigation = [
   {
@@ -75,7 +80,13 @@ export const heroIcons = [homeSmile, file02, searchMd, plusSquare];
 
 export const notificationImages = [notification4, notification3, notification2];
 
-export const companyLogos = [yourlogo, yourlogo, yourlogo, yourlogo, yourlogo];
+export const companyLogos = [
+  { img: alien, name: "Alien Tech" },
+  { img: ufo, name: " Spacecraft" },
+  { img: suit, name: " Spacesuits" },
+  { img: weapon, name: " Alien Arsenal" },
+  { img: bot, name: " Robotics" },
+];
 
 export const brainwaveServices = [
   "Photo generating",
@@ -244,52 +255,52 @@ export const pricing = [
 export const benefits = [
   {
     id: "0",
-    title: "Ask anything",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Experience Sci-Fi Marvels",
+    text: "Step into a world of sci-fi marvels with our collection of temperature-responsive objects. Explore cutting-edge designs inspired by the imagination of science fiction.",
     backgroundUrl: "./src/assets/benefits/card-1.svg",
-    iconUrl: benefitIcon1,
+    iconUrl: "./src/assets/benfit/thermometer.png",
     imageUrl: benefitImage2,
   },
   {
     id: "1",
-    title: "Improve everyday",
-    text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
+    title: "Enhance Your Space with Futuristic Designs",
+    text: "Immerse yourself in futuristic designs that blur the line between reality and imagination. Elevate your space with kinetic creations inspired by the wonders of sci-fi tech.",
     backgroundUrl: "./src/assets/benefits/card-2.svg",
-    iconUrl: benefitIcon2,
+    iconUrl: "./src/assets/benfit/kinetic-energy.png",
     imageUrl: benefitImage2,
     light: true,
   },
   {
     id: "2",
-    title: "Connect everywhere",
-    text: "Connect with the AI chatbot from anywhere, on any device, making it more accessible and convenient.",
+    title: "Connect Anywhere with Futuristic Innovations",
+    text: "Connect with futuristic innovations from anywhere, on any device. Our collection of temperature-responsive objects brings the future to your fingertips, no matter where you are.",
     backgroundUrl: "./src/assets/benefits/card-3.svg",
-    iconUrl: benefitIcon3,
+    iconUrl: "./src/assets/benfit/bot.png",
     imageUrl: benefitImage2,
   },
   {
     id: "3",
-    title: "Fast responding",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Efficient Assistance for Sci-Fi Enthusiasts",
+    text: "Get fast responses and efficient assistance for all your sci-fi inquiries. Dive deep into the world of science fiction with our curated collection of kinetic wonders.",
     backgroundUrl: "./src/assets/benefits/card-4.svg",
-    iconUrl: benefitIcon4,
+    iconUrl: "./src/assets/benfit/test-tube.png",
     imageUrl: benefitImage2,
     light: true,
   },
   {
     id: "4",
-    title: "Ask anything",
-    text: "Lets users quickly find answers to their questions without having to search through multiple sources.",
+    title: "Discover Unique Sci-Fi Marvels",
+    text: "Explore a diverse collection of temperature-responsive objects inspired by the realms of science fiction. Elevate your space with unique designs that push the boundaries of imagination.",
     backgroundUrl: "./src/assets/benefits/card-5.svg",
-    iconUrl: benefitIcon1,
+    iconUrl: "./src/assets/benfit/flask.png",
     imageUrl: benefitImage2,
   },
   {
     id: "5",
-    title: "Improve everyday",
-    text: "The app uses natural language processing to understand user queries and provide accurate and relevant responses.",
+    title: "Stay Informed with Sci-Fi Technology",
+    text: "Experience the wonders of sci-fi technology with our innovative collection of kinetic wonders. Stay informed and inspired as you explore the possibilities of the future.",
     backgroundUrl: "./src/assets/benefits/card-6.svg",
-    iconUrl: benefitIcon2,
+    iconUrl: "./src/assets/benfit/lightbulb.png",
     imageUrl: benefitImage2,
   },
 ];
