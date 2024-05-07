@@ -1,7 +1,6 @@
 import { background, curve, heroBackground, robot } from "../../../assets";
 import Button from "./Button";
 import Robo from "../../../assets/hero/robo.png";
-import City from "../../../assets/hero/city.png";
 import Section from "./Section";
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 import { heroIcons } from "../constants";

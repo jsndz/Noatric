@@ -41,6 +41,14 @@ import weapon from "../../../assets/category/rifle.png";
 import bot from "../../../assets/category/space-robot.png";
 import ufo from "../../../assets/category/ufo.png";
 
+import axios from "../../../assets/tech/axios.svg";
+import express from "../../../assets/tech/express.png";
+import mongo from "../../../assets/tech/mongo.png";
+import node from "../../../assets/tech/nodejs.png";
+import react from "../../../assets/tech/physics.png";
+import redux from "../../../assets/tech/redux.png";
+import stripe from "../../../assets/tech/stripe.png";
+import tailwind from "../../../assets/tech/tailwind-css.svg";
 export const navigation = [
   {
     id: "0",
@@ -105,8 +113,8 @@ export const brainwaveServicesIcons = [
 export const roadmap = [
   {
     id: "0",
-    title: "Voice recognition",
-    text: "Enable the chatbot to understand and respond to voice commands, making it easier for users to interact with the app hands-free.",
+    title: "Backend and Database setup",
+    text: "Implement robust backend infrastructure and database systems to support Noatric's dynamic Kinetic Wonders, ensuring seamless performance and data management.",
     date: "May 2023",
     status: "done",
     imageUrl: roadmap1,
@@ -114,24 +122,24 @@ export const roadmap = [
   },
   {
     id: "1",
-    title: "Gamification",
-    text: "Add game-like elements, such as badges or leaderboards, to incentivize users to engage with the chatbot more frequently.",
+    title: "Frontend Integration",
+    text: "Integrate captivating frontend elements to enhance the visual appeal of Noatric's Kinetic Wonders, providing users with an immersive and interactive experience.",
     date: "May 2023",
     status: "progress",
     imageUrl: roadmap2,
   },
   {
     id: "2",
-    title: "Chatbot customization",
-    text: "Allow users to customize the chatbot's appearance and behavior, making it more engaging and fun to interact with.",
+    title: "Designing of Website",
+    text: "Craft visually stunning website designs that showcase the uniqueness of Noatric's Kinetic Wonders, captivating visitors and inviting them to explore further.",
     date: "May 2023",
     status: "done",
     imageUrl: roadmap3,
   },
   {
     id: "3",
-    title: "Integration with APIs",
-    text: "Allow the chatbot to access external data sources, such as weather APIs or news APIs, to provide more relevant recommendations.",
+    title: "Hosting and Deployment",
+    text: "Implement efficient hosting and deployment strategies to ensure Noatric's Kinetic Wonders are accessible and performant across various platforms, maximizing reach and impact.",
     date: "May 2023",
     status: "progress",
     imageUrl: roadmap4,
@@ -139,78 +147,80 @@ export const roadmap = [
 ];
 
 export const collabText =
-  "With smart automation and top-notch security, it's the perfect solution for teams looking to work smarter.";
+  "Noatric's innovative collaboration is powered by automation and top-notch security, perfect for teams seeking an elevated experience.";
 
 export const collabContent = [
   {
     id: "0",
-    title: "Seamless Integration",
-    text: collabText,
+    title: "Integrated Payment Solutions",
+    text: "",
   },
   {
     id: "1",
-    title: "Smart Automation",
+    title: "Interactive Frontend Experience",
+    text: "",
   },
   {
     id: "2",
-    title: "Top-notch Security",
+    title: "Scalable Backend Architecture",
+    text: "",
   },
 ];
 
 export const collabApps = [
   {
     id: "0",
-    title: "Figma",
-    icon: figma,
+    title: "React",
+    icon: react,
     width: 26,
     height: 36,
   },
   {
     id: "1",
-    title: "Notion",
-    icon: notion,
+    title: "Redux",
+    icon: redux,
     width: 34,
     height: 36,
   },
   {
     id: "2",
-    title: "Discord",
-    icon: discord,
+    title: "Axios",
+    icon: axios,
     width: 36,
     height: 28,
   },
   {
     id: "3",
-    title: "Slack",
-    icon: slack,
+    title: "Mongodb",
+    icon: mongo,
     width: 34,
     height: 35,
   },
   {
     id: "4",
-    title: "Photoshop",
-    icon: photoshop,
+    title: "Tailwind-css",
+    icon: tailwind,
     width: 34,
     height: 34,
   },
   {
     id: "5",
-    title: "Protopie",
-    icon: protopie,
+    title: "Stripe",
+    icon: stripe,
     width: 34,
     height: 34,
   },
   {
     id: "6",
-    title: "Framer",
-    icon: framer,
+    title: "Node.js",
+    icon: node,
     width: 26,
     height: 34,
   },
   {
     id: "7",
-    title: "Raindrop",
-    icon: raindrop,
+    title: "Express.js",
+    icon: express,
     width: 38,
     height: 32,
   },
