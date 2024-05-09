@@ -1,7 +1,4 @@
-import { notification1 } from "../../../assets";
-import NewStock from "../../../assets/notification/NewStock.png";
 import New from "../../../assets/notification/steampunk.png";
-import { notificationImages } from "../constants";
 
 const Notification = ({ className, title }) => {
   return (

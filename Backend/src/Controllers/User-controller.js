@@ -6,9 +6,6 @@ async function createUser(req, res) {
 
     const user = await userService.createUser(req.body);
 
-    res.cookie("token", user.token, {
-      expires: new Date(Date.now() + 900000),
-    });
     return res.status(201).json({
       data: user,
       success: true,
@@ -20,7 +17,7 @@ async function createUser(req, res) {
       data: {},
       success: false,
       message: "couldn't create user",
-      err: { error },
+      err: error.message,
     });
   }
 }

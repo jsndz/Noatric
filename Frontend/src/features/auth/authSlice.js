@@ -28,6 +28,9 @@ export const createUserAsync = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await createUser(userData);
+      axios.defaults.headers.common[
+        "Authorization"
+      ] = `Bearer ${response.token}`;
       Cookies.set("token", response.token, {
         expires: 7,
         sameSite: "None",
@@ -37,8 +40,12 @@ export const createUserAsync = createAsyncThunk(
       localStorage.setItem("cartId", response.cartId);
       return response;
     } catch (error) {
-      console.error("Error fetching cart items:", error);
-      return thunkAPI.rejectWithValue("Something is wrong with API ");
+      console.error("Error during login:", error);
+      if (error.response && error.response.data) {
+        return thunkAPI.rejectWithValue(error.response.data.err);
+      } else {
+        return thunkAPI.rejectWithValue("Unknown error occurred");
+      }
     }
   }
 );
@@ -232,6 +239,10 @@ export const userSlice = createSlice({
         state.status = "idle";
         state.access_token = action.payload.access_token;
         state.cartId = action.payload.cartId;
+      })
+      .addCase(createUserAsync.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.payload;
       })
       .addCase(loginUserAsync.pending, (state) => {
         state.status = "loading";

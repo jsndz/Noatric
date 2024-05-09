@@ -1,23 +1,17 @@
 import Section from "./Section";
 import Heading from "./Heading";
-import { service1, service2, service3, check } from "../../../assets";
-import { brainwaveServices, brainwaveServicesIcons } from "../constants";
-import {
-  PhotoChatMessage,
-  Gradient,
-  VideoBar,
-  VideoChatMessage,
-} from "./design/Services";
+import { service2, service3 } from "../../../assets";
+import { Gradient } from "./design/Services";
 
 import Generating from "./Generating";
 
 const Services = () => {
   return (
-    <Section id="how-to-use">
+    <Section id="service">
       <div className="container">
         <Heading
-          title="Generative AI made for creators."
-          text="Brainwave unlocks the potential of AI-powered applications"
+          title="Explore the Kinetic Art."
+          text="Discover the endless possibilities with Noatric's innovative Kinetic Wonders."
         />
 
         <div className="relative">

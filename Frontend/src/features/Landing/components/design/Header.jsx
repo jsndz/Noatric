@@ -1,4 +1,4 @@
-import { background } from "../../../../assets";
+import background from "../../../../assets/background.jpg";
 
 export const Rings = () => {
   return (

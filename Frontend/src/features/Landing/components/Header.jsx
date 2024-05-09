@@ -1,5 +1,5 @@
 import Logo from "/noatric-removebg.png";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { disablePageScroll, enablePageScroll } from "scroll-lock";
 
 import { navigation } from "../constants";
@@ -37,7 +37,7 @@ const Header = () => {
     >
       <div className="flex items-center px-5 lg:px-7.5 xl:px-10 max-lg:py-4">
         <a className="block w-[12rem] xl:mr-8" href="#hero">
-          <img src={Logo} width={190} height={40} alt="Brainwave" />
+          <img src={Logo} width={190} height={40} alt="Noatric" />
         </a>
 
         <nav
@@ -67,13 +67,13 @@ const Header = () => {
           <HamburgerMenu />
         </nav>
 
-        <a
-          href="#signup"
+        <Link
+          to="/signup"
           className="button hidden mr-8 text-n-1/50 transition-colors hover:text-n-1 lg:block"
         >
           New account
-        </a>
-        <Button className="hidden lg:flex" href="#login">
+        </Link>
+        <Button to="/login" className="hidden lg:flex" href="#login">
           Sign in
         </Button>
 

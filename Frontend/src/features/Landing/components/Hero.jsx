@@ -1,4 +1,7 @@
-import { background, curve, heroBackground, robot } from "../../../assets";
+import { heroBackground } from "../../../assets";
+import { curve1 } from "../../../assets";
+import background from "../../../assets/background.jpg";
+
 import Button from "./Button";
 import Robo from "../../../assets/hero/robo.png";
 import Section from "./Section";
@@ -28,7 +31,7 @@ const Hero = () => {
             <span className="inline-block relative">
               Noatric{" "}
               <img
-                src={curve}
+                src={curve1}
                 className="absolute top-full left-0 w-full xl:-mt-2"
                 width={624}
                 height={28}
@@ -40,7 +43,7 @@ const Hero = () => {
             Unleash Your Space's Potential, Elevate Your Environment with
             Noatric's Kinetic Collection, Where Art Meets Science Fiction.
           </p>
-          <Button href="/pricing" white>
+          <Button to="/" white>
             Explore
           </Button>
         </div>

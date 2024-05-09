@@ -10,6 +10,11 @@ class UserService {
   async createUser(User) {
     try {
       const user = await this.userRepository.create(User);
+      if (!user) {
+        throw {
+          message: "Email has already been taken",
+        };
+      }
       const cartId = user.cart;
       const token = await user.genJwt(user);
       return { token, cartId };
