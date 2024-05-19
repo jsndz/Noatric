@@ -32,6 +32,8 @@ export const fetchProductsByFilterAsync = createAsyncThunk(
   async ({ filter, pagin }, thunkAPI) => {
     try {
       const response = await fetchProductsByFilters(filter, pagin);
+      console.log(response);
+
       return response;
     } catch (error) {
       console.error("Error fetching cart items:", error);

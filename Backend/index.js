@@ -11,9 +11,11 @@ import { passportAuth } from "./src/config/authConfig.js";
 import { STRIPE_SK } from "./src/config/serverconfig.js";
 
 const app = express();
+const corsOptions = {
+  exposedHeaders: ["X-Total-Count"],
+};
 
-app.use(cors());
-
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());

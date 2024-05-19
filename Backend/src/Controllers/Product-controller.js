@@ -74,6 +74,7 @@ async function getProductsByFilter(req, res) {
     const first = (req.query.page - 1) * req.query.limit;
     const products = allproducts.slice(first, last);
     res.setHeader("X-Total-Count", totalCount);
+    console.log(totalCount);
     return res.status(201).json({
       data: products,
       success: true,

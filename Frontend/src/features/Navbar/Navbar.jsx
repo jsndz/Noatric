@@ -7,7 +7,7 @@ import {
   XMarkIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
-import Logo from "/logo.png";
+import Logo from "/noatric-removebg.png";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -16,6 +16,7 @@ import {
   selectCartId,
   selectTotalProducts,
 } from "../Cart/cartSlice";
+import user from "../../assets/account.png";
 import {
   AuthSignOut,
   getUserInfoAsync,
@@ -44,10 +45,13 @@ export function Navbar() {
   const userInfo = useSelector(selectUserInfo);
 
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure
+      as="nav"
+      className="fixed top-0 left-0 w-full bg-n-8/90 border-b border-n-6 backdrop-blur-sm z-10"
+    >
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className=" mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -62,17 +66,15 @@ export function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <Link to="/">
-                  <div className="flex flex-shrink-0 items-center">
-                    <img className="h-8 w-auto" src={Logo} alt="Your Company" />
-                  </div>
+                <Link to="/" className="block w-[12rem] xl:mr-8" href="#hero">
+                  <img src={Logo} width={190} height={40} alt="Noatric" />
                 </Link>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <Link to="/cart">
                   <button
                     type="button"
-                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    className="relative   text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                   >
                     <span className="absolute -inset-1.5" />
                     <span className="sr-only">View notifications</span>
@@ -88,7 +90,7 @@ export function Navbar() {
                     <Menu.Button className="relative flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <UserPlusIcon></UserPlusIcon>
+                      <img className="h-8 w-8 rounded-full" src={user} alt="" />
                     </Menu.Button>
                   </div>
                   <Transition
