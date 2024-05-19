@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Fragment, useState } from "react";
 import { Dialog, Disclosure, Menu, Transition } from "@headlessui/react";
 import Section from "../../Landing/components/Section";
+import TagLine from "../../Landing/components/Tagline";
 import {
   XMarkIcon,
   ChevronLeftIcon,
@@ -157,9 +158,9 @@ export default function ProductList() {
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-100">
+              <TagLine className="text-2xl  tracking-tight text-gray-100">
                 All Products
-              </h1>
+              </TagLine>
 
               <div className="flex items-center">
                 <Menu as="div" className="relative inline-block text-left">
@@ -376,7 +377,7 @@ function MobileFilter({
 function Pagination({ page, handlePagination, setPage, totalItems }) {
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
   return (
-    <div className="flex items-center justify-between border-t border-gray-700  px-4 py-3 sm:px-6">
+    <div className="flex items-center justify-between border-t border-n-10 px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-between sm:hidden">
         <div
           onClick={
@@ -384,7 +385,7 @@ function Pagination({ page, handlePagination, setPage, totalItems }) {
               ? () => handlePagination(page - 1)
               : () => handlePagination(1)
           }
-          className="relative inline-flex items-center rounded-md border border-gray-600 bg-gray-800 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          className="relative inline-flex items-center rounded-md border border-n-6 bg-n-7 px-4 py-2 text-sm font-medium text-n-2 hover:bg-n-9 hover:text-n-1"
         >
           Previous
         </div>
@@ -394,14 +395,14 @@ function Pagination({ page, handlePagination, setPage, totalItems }) {
               ? () => handlePagination(page + 1)
               : () => handlePagination(totalPages)
           }
-          className="relative ml-3 inline-flex items-center rounded-md border border-gray-600 bg-gray-800 px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+          className="relative ml-3 inline-flex items-center rounded-md border border-n-6 bg-n-7 px-4 py-2 text-sm font-medium text-n-2 hover:bg-n-9 hover:text-n-1"
         >
           Next
         </div>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm text-gray-300">
+          <p className="text-sm text-n-2">
             Showing{" "}
             <span className="font-medium">
               {(page - 1) * ITEMS_PER_PAGE + 1}
@@ -422,7 +423,7 @@ function Pagination({ page, handlePagination, setPage, totalItems }) {
                   ? () => handlePagination(page - 1)
                   : () => handlePagination(1)
               }
-              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-600 bg-gray-800 hover:bg-gray-700 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center rounded-l-md px-2 py-2 text-n-3 ring-1 ring-inset ring-n-6 bg-n-7 hover:bg-n-9 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
@@ -435,11 +436,11 @@ function Pagination({ page, handlePagination, setPage, totalItems }) {
                 aria-current="page"
                 className={`relative z-10 inline-flex items-center ${
                   index + 1 === page
-                    ? "bg-indigo-600 text-white"
-                    : "text-gray-400"
+                    ? "bg-color-5 rounded-md text-n-1"
+                    : "text-n-3"
                 }  px-4 py-2 text-sm font-semibold
-                  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
-                  focus-visible:outline-indigo-600 cursor-pointer`}
+              focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+              focus-visible:outline-color-1 cursor-pointer`}
               >
                 {index + 1}
               </div>
@@ -451,7 +452,7 @@ function Pagination({ page, handlePagination, setPage, totalItems }) {
                   ? () => handlePagination(page + 1)
                   : () => handlePagination(totalPages)
               }
-              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-600 bg-gray-800 hover:bg-gray-700 focus:z-20 focus:outline-offset-0"
+              className="relative inline-flex items-center rounded-r-md px-2 py-2 text-n-3 ring-1 ring-inset ring-n-6 bg-n-7 hover:bg-n-9 focus:z-20 focus:outline-offset-0"
             >
               <span className="sr-only">Next</span>
               <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
