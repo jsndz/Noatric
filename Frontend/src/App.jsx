@@ -14,11 +14,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import { PDetailPage } from "./pages/PDetailPage";
 import Protected from "./features/auth/components/Protected";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCartIdAsync,
-  getTotalProductsAsync,
-  selectCartId,
-} from "./features/Cart/cartSlice";
+
 import Page404 from "./pages/Page404";
 import OrderSuccessPage from "./pages/OrderSuccessPage";
 import UserProfilePage from "./pages/UserProfilePage";
@@ -31,7 +27,6 @@ import StripeCheckout from "./pages/StripeCheckout";
 import ResetPasswordReq from "./pages/ResetPasswordReq";
 import SetPasswordPage from "./pages/SetPasswordPage";
 import { AuthHeaderSet, resetError } from "./features/auth/authSlice";
-import OrderSuccessCard from "./features/Order/OrderSuccessCard";
 import CardSucess from "./pages/CardSucess";
 import LandingPage from "./features/Landing/LandingPage";
 const router = createBrowserRouter([
@@ -91,14 +86,7 @@ const router = createBrowserRouter([
       </Protected>
     ),
   },
-  {
-    path: "/order-success/:id?payment_intent=:payment_intent&payment_intent_client_secret=:payment_intent_client_secret&redirect_status=:redirect_status",
-    element: (
-      <Protected>
-        <OrderSuccessCard></OrderSuccessCard>
-      </Protected>
-    ),
-  },
+
   {
     path: "/user-profile",
     element: (

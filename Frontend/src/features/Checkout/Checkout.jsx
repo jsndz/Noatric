@@ -21,9 +21,9 @@ import {
   selectOrderId,
   clearOrder,
 } from "../Order/orderSlice";
-import Section from "../Landing/components/Section";
 import Modal from "../modal/Modal";
 import TagLine from "../Landing/components/Tagline";
+import Button from "../Landing/components/Button";
 export function Checkout() {
   const {
     register,
@@ -80,12 +80,11 @@ export function Checkout() {
     dispatch(createOrderAsync(orderData));
   };
   const handleAddressForm = async () => {
-    console.log(addressForm);
     setAddressForm(true);
   };
 
   return (
-    <div className="flex justify-evenly pt-6 ">
+    <div className="flex justify-center md:flex-col md:w-full lg:flex-row flex-col pt-6">
       {currentOrder && currentOrder.paymentMethod === "cash" && (
         <Navigate to={`/order-success/${currentOrder.id}`} replace={true} />
       )}
@@ -93,12 +92,12 @@ export function Checkout() {
         <Navigate to={`/stripe-checkout`} />
       )}
 
-      <div className="relative w-1/3 mx-auto pt-6 md:max-w-5xl xl:mb-24">
-        <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
+      <div className="relative w-full md:w-full  pt-6 mr-6 md:max-w-5xl xl:mb-24">
+        <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient border border-color-5">
           <div className="relative bg-n-8 rounded-[1rem]">
             <div className=" bg-n-10 rounded-t-[0.9rem]" />
-            <div className="mx-auto  max-w-7xl px-4 sm:px-6 lg:px-8">
-              <div className="flex justify-between h-full flex-col   shadow-xl max-w-full">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex justify-between h-full flex-col shadow-xl max-w-full">
                 <div className="flex-1  px-4 py-6 sm:px-6">
                   {/* Shopping Cart Content */}
                   <div className="flex items-start justify-between">
@@ -198,19 +197,19 @@ export function Checkout() {
               </div>
             </div>
           </div>{" "}
-          <div className="border mt-1 p-4 round border-color-5 rounded-lg ">
-            <AddressListing
-              addresses={addresses}
-              setSelectedAddress={setSelectedAddress}
-              handleAddressForm={handleAddressForm}
-            />
-            {/* Payments */}
-            <Payments
-              paymentMethod={paymentMethod}
-              setPaymentMethod={setPaymentMethod}
-            />
-          </div>
         </div>
+      </div>
+      <div className="relative   mt-6 md:mt-0 p-4 border border-color-5 rounded-lg ">
+        <AddressListing
+          addresses={addresses}
+          setSelectedAddress={setSelectedAddress}
+          handleAddressForm={handleAddressForm}
+        />
+        {/* Payments */}
+        <Payments
+          paymentMethod={paymentMethod}
+          setPaymentMethod={setPaymentMethod}
+        />
       </div>
       {addressForm && (
         <Modal onClose={() => setAddressForm(false)}>
@@ -232,13 +231,14 @@ const AddressListing = ({
   setSelectedAddress,
   handleAddressForm,
 }) => {
+  console.log(addresses);
   return addresses.length !== 0 ? (
     <div>
-      <div className="border-b rounded-md border-gray-300   pb-12">
-        <h2 className="text-base font-semibold leading-7 text-black">
+      <div className="border-b rounded-md border-gray-300 pb-12">
+        <h2 className="text-base font-semibold leading-7 text-gray-100">
           Select Your Address
         </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">
+        <p className="mt-1 text-sm leading-6 text-gray-400">
           Choose from Existing addresses
         </p>
         <ul role="list">
@@ -246,56 +246,47 @@ const AddressListing = ({
             addresses.map((address, index) => (
               <li
                 key={index}
-                className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-500"
+                className="flex items-center gap-x-6 px-5 py-5 border-solid border-2 border-gray-500 bg-gray-800 rounded-md"
               >
-                <div className="flex gap-x-4">
+                <div>
                   <input
                     onClick={() => {
                       setSelectedAddress(address);
                     }}
                     name="address"
                     type="radio"
-                    className="h-4 w-4 border-gray-600 text-black focus:ring-black"
+                    className="h-4 w-4 bg-black border-gray-600 text-gray-100 focus:ring-gray-100 focus:bg-black"
                   />
-                  <div className="min-w-0 flex-auto">
-                    <p className="text-sm font-semibold leading-6 text-black">
-                      {address.name}
-                    </p>
-                    <p className="mt-1 truncate text-xs leading-5 text-gray-700">
-                      {address.street}
-                    </p>
-                    <p className="mt-1 truncate text-xs leading-5 text-gray-700">
-                      {address.pinCode}
-                    </p>
-                  </div>
                 </div>
-                <div className="hidden sm:flex sm:flex-col sm:items-end">
-                  <p className="text-sm leading-6 text-black">
-                    Phone: {address.phone}
-                  </p>
-                  <p className="text-sm leading-6 text-gray-700">
-                    {address.city}
-                  </p>
-                </div>
+                <p className="text-sm font-semibold leading-6 text-gray-100">
+                  {address.name}
+                </p>
+                {/* <div className="flex flex-wrap items-center gap-x-4"> */}
+                <p className="text-sm leading-6 text-gray-100">
+                  {address["street-address"]}
+                </p>
               </li>
             ))}
         </ul>
-        <button
-          className="rounded-md mt-4 bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800"
+
+        <Button
+          className="rounded-md mt-4 bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-100 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
           onClick={handleAddressForm}
         >
           New Address
-        </button>
+        </Button>
       </div>
     </div>
   ) : (
     <div>
-      <h2 className="text-base font-semibold leading-7 text-black">
+      <h2 className="text-base font-semibold leading-7 text-gray-100">
         Addresses
       </h2>
-      <p>Your List of Address is empty. Add your address</p>
+      <p className="text-sm leading-6 text-gray-400">
+        Your List of Address is empty. Add your address
+      </p>
       <button
-        className="rounded-md mt-4 bg-gray-800 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-800"
+        className="rounded-md mt-4 bg-gray-700 px-3 py-2 text-sm font-semibold text-gray-100 shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-100"
         onClick={handleAddressForm}
       >
         New Address
@@ -308,7 +299,7 @@ const Payments = ({ setPaymentMethod, paymentMethod }) => {
   return (
     <div>
       <div className="border-b border-gray-300 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-black">
+        <h2 className="text-base font-semibold leading-7 text-gray-100">
           Select Payment Method
         </h2>
         <div className="mt-1 space-y-10">
@@ -320,14 +311,17 @@ const Payments = ({ setPaymentMethod, paymentMethod }) => {
                     setPaymentMethod("cash");
                   }}
                   checked={paymentMethod === "cash"}
-                  id="payment"
+                  id="payment-cash"
                   name="payment"
                   type="radio"
-                  className="h-4 w-4 rounded border-gray-600 text-black focus:ring-black"
+                  className="h-4 w-4 bg-black border-gray-600 text-gray-100 focus:ring-gray-100 focus:bg-black"
                 />
               </div>
               <div className="text-sm leading-6">
-                <label htmlFor="comments" className="font-medium text-black">
+                <label
+                  htmlFor="payment-cash"
+                  className="font-medium text-gray-100"
+                >
                   Cash
                 </label>
               </div>
@@ -338,15 +332,18 @@ const Payments = ({ setPaymentMethod, paymentMethod }) => {
                   onChange={() => {
                     setPaymentMethod("card");
                   }}
-                  id="payment"
+                  id="payment-card"
                   name="payment"
                   type="radio"
                   checked={paymentMethod === "card"}
-                  className="h-4 w-4 rounded border-gray-600 text-black focus:ring-black"
+                  className="h-4 w-4 bg-black border-gray-600 text-gray-100 focus:ring-gray-100 focus:bg-black"
                 />
               </div>
               <div className="text-sm leading-6">
-                <label htmlFor="candidates" className="font-medium text-black">
+                <label
+                  htmlFor="payment-card"
+                  className="font-medium text-gray-100"
+                >
                   Card
                 </label>
               </div>
