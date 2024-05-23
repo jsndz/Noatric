@@ -20,9 +20,11 @@ function UserProfile() {
     formState: { errors },
   } = useForm();
   const [edit, setEdit] = useState(false);
+  const [Name, setName] = useState("");
   const [showAddAddressForm, setShowAddAddressForm] = useState(false);
   const [editForm, setEditForm] = useState(false);
   const [showAddressForm, setShowAddressForm] = useState(false);
+  const [isNameDialogOpen, setIsNameDialogOpen] = useState(false);
   useEffect(() => {
     dispatch(getUserInfoAsync());
   }, [dispatch]);
@@ -45,11 +47,7 @@ function UserProfile() {
     await setEdit((prevEdit) => !prevEdit);
   };
   const handleName = async () => {
-    const name = prompt("Please enter your name", user.name);
-    if (name != null) {
-      await dispatch(setNameAsync(name));
-      await dispatch(getUserInfoAsync());
-    }
+    setIsNameDialogOpen(true);
   };
   const handleAddAddressClick = () => {
     console.log(showAddAddressForm);
@@ -60,14 +58,13 @@ function UserProfile() {
     user && (
       <div>
         <div>
-          <h1 className="text-white">User Details</h1>
-          <div className="p-16 ">
-            <div className="p-8 bg-transparent  shadow mt-24">
+          <div className="p-16   flex justify-center items-center">
+            <div className="p-8  shadow-lg rounded-lg mt-12 w-full max-w-1xl">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-                <div className="relative col-span-1 md:col-span-2">
-                  <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+                <div className="relative col-span-1 md:col-span-1 flex justify-center">
+                  <div className="w-48 h-48 bg-indigo-100 rounded-full shadow-2xl flex items-center justify-center text-indigo-500">
                     <svg
-                      xmlns="https://www.w3.org/2000/svg"
+                      xmlns="http://www.w3.org/2000/svg"
                       className="h-24 w-24"
                       viewBox="0 0 20 20"
                       fill="currentColor"
@@ -79,36 +76,32 @@ function UserProfile() {
                       />
                     </svg>
                   </div>
-
-                  <div className="mt-8 md:mt-6 text-center pb-8">
-                    <h1 className="text-4xl font-medium z-10 text-white text-center mt-6">
-                      {user.name || "Name"}
-                    </h1>
-                    <p className="font-light text-gray-300 mt-3">
-                      {user.email}
-                    </p>
-                    <p className="mt-3 text-gray-300">
-                      {user.addresses && user.addresses.length > 0
-                        ? user.addresses[0].city
-                        : "Add your address"}
-                    </p>
-                  </div>
                 </div>
-                <div className="space-y-4 md:space-y-0 md:space-x-8 flex flex-col md:flex-row justify-center md:justify-between col-span-1">
-                  <Button
-                    onClick={() => {
-                      setShowAddressForm(true);
-                    }}
-                    className="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
-                  >
-                    Add Address
-                  </Button>
-                  <Button
-                    onClick={handleName}
-                    className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
-                  >
-                    Edit Name
-                  </Button>
+                <div className="col-span-1 md:col-span-2 text-center md:text-left">
+                  <h1 className="text-4xl font-medium text-white">
+                    {user.name || "Name"}
+                  </h1>
+                  <p className="font-light text-gray-300 mt-3">{user.email}</p>
+                  <p className="mt-3 text-gray-300">
+                    {user.addresses && user.addresses.length > 0
+                      ? user.addresses[0].city
+                      : "Add your address"}
+                  </p>
+
+                  <div className="mt-6 flex justify-center md:justify-start space-x-4">
+                    <Button
+                      onClick={() => setShowAddressForm(true)}
+                      className="text-white py-2 px-4 uppercase rounded bg-color-1 hover:text-white shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                    >
+                      Add Address
+                    </Button>
+                    <Button
+                      onClick={handleName}
+                      className="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"
+                    >
+                      Edit Name
+                    </Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -206,6 +199,46 @@ function UserProfile() {
             ></AddAddress>
           </Modal>
         )}
+        {isNameDialogOpen && (
+          <Modal onClose={() => setIsNameDialogOpen(false)}>
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+              <div className="bg-black p-4 rounded-lg shadow-lg">
+                <h2 className="text-xl mb-4 text-white">Enter your name</h2>
+                <form
+                  onSubmit={async (e) => {
+                    if (Name != null) {
+                      e.preventDefault();
+                      await dispatch(setNameAsync(Name));
+                      await dispatch(getUserInfoAsync());
+                      setIsNameDialogOpen(false);
+                    }
+                  }}
+                >
+                  <input
+                    type="text"
+                    value={Name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="block w-full mb-4 p-2 border border-gray-300 rounded text-white placeholder-gray-400 bg-gray-800"
+                    placeholder="Your name"
+                  />
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded mr-2"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="button"
+                    className="bg-gray-500 text-white px-4 py-2 rounded"
+                    onClick={() => setIsNameDialogOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                </form>
+              </div>
+            </div>
+          </Modal>
+        )}
       </div>
     )
   );
@@ -221,222 +254,21 @@ const EditAddress = ({
   set,
 }) => {
   return (
-    <form
-      noValidate
-      className="lg:w-3/4 "
-      onSubmit={handleSubmit(async (data) => {
-        await dispatch(editAddressAsync({ indexing, data }));
-        await dispatch(getUserInfoAsync());
-        handleEdit();
-      })}
-    >
-      <div className="border-b border-gray-900/10 pb-12">
-        <h2 className="text-base font-semibold leading-7 text-gray-900">
-          Personal Information
-        </h2>
-        <p className="mt-1 text-sm leading-6 text-gray-600">
-          Use a permanent address where you can receive mail.
-        </p>
-
-        <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Full name
-            </label>
-            <div className="mt-2">
-              <input
-                {...register("name", {
-                  required: "Name is Required",
-                })}
-                type="text"
-                name="name"
-                id="name"
-                autoComplete="given-name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-4">
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email address
-            </label>
-            <div className="mt-2">
-              <input
-                id="email"
-                {...register("email", {
-                  required: "email is Required",
-                })}
-                name="email"
-                type="email"
-                autoComplete="email"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-3">
-            <label
-              htmlFor="country"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Country
-            </label>
-            <div className="mt-2">
-              <select
-                id="country"
-                {...register("country", {
-                  required: "country is Required",
-                })}
-                name="country"
-                autoComplete="country-name"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-              >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="col-span-full">
-            <label
-              htmlFor="street-address"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Street address
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                {...register("street-address", {
-                  required: "street-address is Required",
-                })}
-                name="street-address"
-                id="street-address"
-                autoComplete="street-address"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2 sm:col-start-1">
-            <label
-              htmlFor="city"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              City
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                {...register("city", {
-                  required: "city is Required",
-                })}
-                name="city"
-                id="city"
-                autoComplete="address-level2"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="region"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              State / Province
-            </label>
-            <div className="mt-2">
-              <input
-                type="text"
-                {...register("region", {
-                  required: "region is Required",
-                })}
-                name="region"
-                id="region"
-                autoComplete="address-level1"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <label
-              htmlFor="postal-code"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              ZIP / Postal code
-            </label>
-            <div className="mt-2">
-              <input
-                {...register("postal-code", {
-                  required: "postal-code is Required",
-                })}
-                type="text"
-                name="postal-code"
-                id="postal-code"
-                autoComplete="postal-code"
-                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="mt-6 flex items-center justify-end gap-x-6">
-        <button
-          onClick={handleEdit}
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Undo
-        </button>
-        <button
-          type="reset"
-          className="text-sm font-semibold leading-6 text-gray-900"
-        >
-          Reset
-        </button>
-        <button
-          type="submit"
-          className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Change Address
-        </button>
-      </div>
-    </form>
-  );
-};
-const AddAddress = ({
-  setShowAddressForm,
-  dispatch,
-  addAddressAsync,
-  getUserInfoAsync,
-  register,
-  handleSubmit,
-}) => {
-  return (
-    <div>
+    <div className="p-8  min-h-screen flex justify-center items-center">
       <form
         noValidate
-        className="lg:w-3/4 "
+        className="lg:w-3/4 bg-gray-900 p-8 rounded-lg shadow-lg"
         onSubmit={handleSubmit(async (data) => {
-          await dispatch(addAddressAsync(data));
+          await dispatch(editAddressAsync({ indexing, data }));
           await dispatch(getUserInfoAsync());
-          setShowAddressForm(false);
+          handleEdit();
         })}
       >
-        <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">
-            Add Address
+        <div className="border-b border-gray-700 pb-8">
+          <h2 className="text-base font-semibold leading-7 text-white">
+            Personal Information
           </h2>
-          <p className="mt-1 text-sm leading-6 text-gray-600">
+          <p className="mt-1 text-sm leading-6 text-gray-400">
             Use a permanent address where you can receive mail.
           </p>
 
@@ -444,7 +276,7 @@ const AddAddress = ({
             <div className="sm:col-span-3">
               <label
                 htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 Full name
               </label>
@@ -457,7 +289,7 @@ const AddAddress = ({
                   name="name"
                   id="name"
                   autoComplete="given-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -465,7 +297,206 @@ const AddAddress = ({
             <div className="sm:col-span-4">
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                Email address
+              </label>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  {...register("email", {
+                    required: "Email is Required",
+                  })}
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="country"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                Country
+              </label>
+              <div className="mt-2">
+                <input
+                  id="country"
+                  {...register("country", {
+                    required: "Country is Required",
+                  })}
+                  name="country"
+                  autoComplete="country-name"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:max-w-xs sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="col-span-full">
+              <label
+                htmlFor="street-address"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                Street address
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  {...register("street-address", {
+                    required: "Street address is Required",
+                  })}
+                  name="street-address"
+                  id="street-address"
+                  autoComplete="street-address"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2 sm:col-start-1">
+              <label
+                htmlFor="city"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                City
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  {...register("city", {
+                    required: "City is Required",
+                  })}
+                  name="city"
+                  id="city"
+                  autoComplete="address-level2"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="region"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                State / Province
+              </label>
+              <div className="mt-2">
+                <input
+                  type="text"
+                  {...register("region", {
+                    required: "Region is Required",
+                  })}
+                  name="region"
+                  id="region"
+                  autoComplete="address-level1"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-2">
+              <label
+                htmlFor="postal-code"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                ZIP / Postal code
+              </label>
+              <div className="mt-2">
+                <input
+                  {...register("postal-code", {
+                    required: "Postal code is Required",
+                  })}
+                  type="text"
+                  name="postal-code"
+                  id="postal-code"
+                  autoComplete="postal-code"
+                  className="block w-full rounded-md border-0 py-1.5 text-white bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-6 flex items-center justify-end gap-x-6">
+          <button
+            onClick={handleEdit}
+            className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          >
+            Undo
+          </button>
+          <button
+            type="reset"
+            className="text-sm font-semibold leading-6 text-gray-400"
+          >
+            Reset
+          </button>
+          <button
+            type="submit"
+            className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+          >
+            Change Address
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+const AddAddress = ({
+  setShowAddressForm,
+  dispatch,
+  addAddressAsync,
+  getUserInfoAsync,
+  register,
+  handleSubmit,
+}) => {
+  return (
+    <div className="p-8  min-h-screen flex justify-center items-center">
+      <form
+        noValidate
+        className="lg:w-3/4 bg-gray-900 p-8 rounded-lg shadow-lg"
+        onSubmit={handleSubmit(async (data) => {
+          await dispatch(addAddressAsync(data));
+          await dispatch(getUserInfoAsync());
+          setShowAddressForm(false);
+        })}
+      >
+        <div className="border-b border-gray-700 pb-8">
+          <h2 className="text-base font-semibold leading-7 text-white">
+            Add Address
+          </h2>
+          <p className="mt-1 text-sm leading-6 text-gray-400">
+            Use a permanent address where you can receive mail.
+          </p>
+
+          <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+            <div className="sm:col-span-3">
+              <label
+                htmlFor="name"
+                className="block text-sm font-medium leading-6 text-gray-400"
+              >
+                Full name
+              </label>
+              <div className="mt-2">
+                <input
+                  {...register("name", {
+                    required: "Name is Required",
+                  })}
+                  type="text"
+                  name="name"
+                  id="name"
+                  autoComplete="given-name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+                />
+              </div>
+            </div>
+
+            <div className="sm:col-span-4">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 Email address
               </label>
@@ -478,7 +509,7 @@ const AddAddress = ({
                   name="email"
                   type="email"
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -486,31 +517,27 @@ const AddAddress = ({
             <div className="sm:col-span-3">
               <label
                 htmlFor="country"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 Country
               </label>
               <div className="mt-2">
-                <select
+                <input
                   id="country"
                   {...register("country", {
                     required: "country is Required",
                   })}
                   name="country"
                   autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:max-w-xs sm:text-sm sm:leading-6"
+                ></input>
               </div>
             </div>
 
             <div className="col-span-full">
               <label
                 htmlFor="street-address"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 Street address
               </label>
@@ -523,7 +550,7 @@ const AddAddress = ({
                   name="street-address"
                   id="street-address"
                   autoComplete="street-address"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -531,7 +558,7 @@ const AddAddress = ({
             <div className="sm:col-span-2 sm:col-start-1">
               <label
                 htmlFor="city"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 City
               </label>
@@ -544,7 +571,7 @@ const AddAddress = ({
                   name="city"
                   id="city"
                   autoComplete="address-level2"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -552,7 +579,7 @@ const AddAddress = ({
             <div className="sm:col-span-2">
               <label
                 htmlFor="region"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 State / Province
               </label>
@@ -565,7 +592,7 @@ const AddAddress = ({
                   name="region"
                   id="region"
                   autoComplete="address-level1"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -573,7 +600,7 @@ const AddAddress = ({
             <div className="sm:col-span-2">
               <label
                 htmlFor="postal-code"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-gray-400"
               >
                 ZIP / Postal code
               </label>
@@ -586,7 +613,7 @@ const AddAddress = ({
                   name="postal-code"
                   id="postal-code"
                   autoComplete="postal-code"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 bg-gray-800 shadow-sm ring-1 ring-inset ring-gray-600 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -595,13 +622,13 @@ const AddAddress = ({
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="reset"
-            className="text-sm font-semibold leading-6 text-gray-900"
+            className="text-sm font-semibold leading-6 text-gray-400"
           >
             Reset
           </button>
           <button
             type="submit"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
           >
             Add Address
           </button>

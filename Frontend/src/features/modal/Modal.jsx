@@ -8,7 +8,7 @@ const Modal = ({ onClose, children }) => {
         className="fixed inset-0 bg-black opacity-50"
         onClick={onClose}
       ></div>
-      <div className="bg-black rounded-lg shadow-lg p-6 z-50 modal-content">
+      <div className=" rounded-lg shadow-lg p-6 z-50 modal-content">
         {children}
       </div>
     </div>,
