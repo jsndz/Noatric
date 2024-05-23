@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { createProductAsync, editProductAsync } from "../Product/productSlice";
 import { Navigate, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Button from "../Landing/components/Button";
+import TagLine from "../Landing/components/Tagline";
 function CreateProductForm({ setShowEditForm }) {
   const {
     register,
@@ -27,15 +29,15 @@ function CreateProductForm({ setShowEditForm }) {
           setShowEditForm(false);
         })}
       >
-        <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
+        <div className="min-h-screen p-6  flex items-center justify-center">
           <div className="container max-w-screen-lg mx-auto">
             <div>
-              <h2 className="font-semibold text-xl text-gray-600">
+              <TagLine className="font-semibold text-xl text-gray-600">
                 Edit Product Form
-              </h2>
-              <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
+              </TagLine>
+              <div className="border border-color-1 rounded shadow-lg p-4 px-4 md:p-8 mb-6">
                 <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-                  <div className="text-gray-600">
+                  <div className="text-color-5">
                     <p className="font-medium text-lg">Enter Product Details</p>
                     <p>Please fill out all the fields.</p>
                   </div>
@@ -49,7 +51,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Product name is required",
                           })}
                           id="title"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-2">
@@ -60,7 +62,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Description is required",
                           })}
                           id="description"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -71,7 +73,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Price is required",
                           })}
                           id="price"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -84,7 +86,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Discount percentage is required",
                           })}
                           id="discountPercentage"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -94,7 +96,7 @@ function CreateProductForm({ setShowEditForm }) {
                           step="0.1"
                           {...register("rating")}
                           id="rating"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -105,7 +107,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Stock is required",
                           })}
                           id="stock"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -116,7 +118,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Brand is required",
                           })}
                           id="brand"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-1">
@@ -127,7 +129,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Category is required",
                           })}
                           id="category"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-2">
@@ -138,7 +140,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "Thumbnail URL is required",
                           })}
                           id="thumbnail"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                       </div>
                       <div className="md:col-span-2">
@@ -149,7 +151,7 @@ function CreateProductForm({ setShowEditForm }) {
                             required: "At least one image URL is required",
                           })}
                           id="images"
-                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"
+                          className="h-10 border mt-1 rounded px-4 w-full bg-gray-500"
                         />
                         <p className="text-sm text-gray-500 mt-1">
                           Enter multiple image URLs separated by commas
@@ -159,13 +161,22 @@ function CreateProductForm({ setShowEditForm }) {
                   </div>
                 </div>
                 <div className="md:col-span-5 text-right">
+                  <div className="inline-flex items-end ">
+                    <Button
+                      type="button"
+                      onClick={() => setShowEditForm(false)}
+                      className="bg-color-1 hover:bg-color-5 mr-4 hover:text-white font-bold py-2 px-4 rounded"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
                   <div className="inline-flex items-end">
-                    <button
+                    <Button
                       type="submit"
-                      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                      className="bg-color-1 hover:bg-color-5 hover:text-white font-bold py-2 px-4 rounded"
                     >
                       Submit
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
