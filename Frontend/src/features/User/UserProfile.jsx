@@ -58,6 +58,9 @@ function UserProfile() {
     user && (
       <div>
         <div>
+          <TagLine className="text-lg pl-10 text-color-1  font-semibold mt-16">
+            User Profile
+          </TagLine>
           <div className="p-16   flex justify-center items-center">
             <div className="p-8  shadow-lg rounded-lg mt-12 w-full max-w-1xl">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
