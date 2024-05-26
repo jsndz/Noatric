@@ -25,7 +25,7 @@ const Collaboration = () => {
             ))}
           </ul>
 
-          <Button>Try it now</Button>
+          <Button to="/">Try it now</Button>
         </div>
 
         <div className="lg:ml-auto xl:w-[38rem] mt-28">
@@ -36,12 +36,7 @@ const Collaboration = () => {
                   <div className="rounded-full border border-n-6 border-gray-500 p-[0.2rem]">
                     <div className="rounded-full border border-n-6 border-gray-400 p-[0.4rem]">
                       <div className="rounded-full border border-n-6 border-gray-300 p-[1rem]">
-                        <img
-                          src={Logo}
-                          width={48}
-                          height={48}
-                          alt="brainwave"
-                        />
+                        <img src={Logo} width={48} height={48} alt="Noatric" />
                       </div>
                     </div>
                   </div>

@@ -135,7 +135,8 @@ export function ProductDetails() {
                   handleCart(cartId, product.id, event);
                 }}
                 type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                className="mt-10 flex w-full items-center justify-center rounded-md border   px-8 py-3 text-base font-medium  hover:text-color-1 transition-colors
+ focus:outline-none focus:ring-2  border-color-1 focus:ring-offset-2 text-n-1"
               >
                 Add to Cart
               </button>

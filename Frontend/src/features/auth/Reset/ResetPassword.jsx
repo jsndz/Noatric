@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { resetPasswordAsync, selectError } from "../authSlice";
+import TagLine from "../../Landing/components/Tagline";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -14,14 +15,14 @@ function ResetPassword() {
   };
   const error = useSelector(selectError);
   return (
-    <div>
-      <div className="max-w-lg mx-auto my-10 bg-white p-8 rounded-xl shadow shadow-slate-300">
-        <h1 className="text-4xl font-medium">Reset password</h1>
+    <div className="mt-40">
+      <div className="max-w-lg mx-auto my-10  p-8 rounded-xl shadow shadow-slate-300">
+        <TagLine className="text-3xl font-medium">Reset password</TagLine>
         <p className="text-slate-500">Fill up the form to reset the password</p>
         <form action className="my-10">
           <div className="flex flex-col space-y-5">
             <label htmlFor="email">
-              <p className="font-medium text-slate-700 pb-2">Email address</p>
+              <p className="font-medium text-white pb-2">Email address</p>
               <input
                 id="email"
                 name="email"
@@ -35,7 +36,7 @@ function ResetPassword() {
             <p className="text-red-500 ">{error}</p>
             <button
               onClick={handleReset}
-              className="w-full py-3 font-medium text-white bg-indigo-600 hover:bg-indigo-500 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
+              className="w-full py-3 font-medium text-white bg-color-1 hover:text-n-2 rounded-lg border-indigo-500 hover:shadow inline-flex space-x-2 items-center justify-center"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
