@@ -1,23 +1,40 @@
-import React from "react";
-import Logo from "/noatric-removebg.png";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { selectToken, setPasswordAsync } from "../authSlice";
+import { resetError, selectToken, setPasswordAsync } from "../authSlice";
 import TagLine from "../../Landing/components/Tagline";
+
 function SetPassword() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  console.log(id);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    dispatch(resetError());
+  }, [dispatch]);
+
   const token = useSelector(selectToken);
+
+  const onSubmit = (data) => {
+    dispatch(
+      setPasswordAsync({
+        email: data.email,
+        password: data.password,
+        token: id,
+        confirmPassword: data["confirm-password"],
+      })
+    );
+  };
+
   return (
     <div>
-      {" "}
       {token && <Navigate to="/" />}
       <section className="dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -27,18 +44,8 @@ function SetPassword() {
             </TagLine>
             <form
               noValidate
-              action="true"
               className="mt-4 space-y-4 lg:mt-5 md:space-y-5"
-              onSubmit={(handleSubmit) => {
-                dispatch(
-                  setPasswordAsync({
-                    email: data.email,
-                    password: data.password,
-                    token: id,
-                    confirmPassword: data["confirm-password"],
-                  })
-                );
-              }}
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div>
                 <label
@@ -52,15 +59,17 @@ function SetPassword() {
                   {...register("email", {
                     required: "Email is Required",
                     pattern: {
-                      value: /\b^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$\b/gi,
+                      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                       message: "Invalid Email",
                     },
                   })}
                   id="email"
                   className="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
-                  required
                 />
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
               <div>
                 <label
@@ -75,17 +84,16 @@ function SetPassword() {
                   {...register("password", {
                     required: "Password is Required",
                     pattern: {
-                      value:
-                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                      message: `- at least 8 characters\n
-                          - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                          - Can contain special characters`,
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+                      message: `- at least 8 characters\n- must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number`,
                     },
                   })}
                   placeholder="••••••••"
                   className="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
                 />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
               <div>
                 <label
@@ -95,18 +103,21 @@ function SetPassword() {
                   Confirm password
                 </label>
                 <input
-                  type="confirm-password"
-                  {...register("password", {
-                    required: "Password is Required",
-                    validate: (value, formValues) =>
-                      value === formValues.password ||
-                      "Password does not match",
+                  type="password"
+                  {...register("confirm-password", {
+                    required: "Confirm Password is Required",
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
                   })}
                   id="confirm-password"
                   placeholder="••••••••"
                   className="border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required
                 />
+                {errors["confirm-password"] && (
+                  <p className="text-red-500">
+                    {errors["confirm-password"].message}
+                  </p>
+                )}
               </div>
               <div className="flex items-start">
                 <div className="flex items-center h-5">
@@ -115,7 +126,6 @@ function SetPassword() {
                     aria-describedby="newsletter"
                     type="checkbox"
                     className="w-4 h-4 border border-gray-300 rounded focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required
                   />
                 </div>
                 <div className="ml-3 text-sm">
@@ -137,13 +147,12 @@ function SetPassword() {
                 type="submit"
                 className="w-full border text-white bg-primary-600 transition-colors hover:text-color-1 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Reset passwod
+                Reset password
               </button>
             </form>
           </div>
         </div>
       </section>
-      ;
     </div>
   );
 }

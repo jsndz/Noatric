@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { resetPasswordAsync, selectError } from "../authSlice";
+import { resetError, resetPasswordAsync, selectError } from "../authSlice";
 import TagLine from "../../Landing/components/Tagline";
 
 function ResetPassword() {
@@ -13,6 +13,9 @@ function ResetPassword() {
     dispatch(resetPasswordAsync(email));
     setMsg(true);
   };
+  useEffect(() => {
+    dispatch(resetError());
+  }, [dispatch]);
   const error = useSelector(selectError);
   return (
     <div className="mt-40">

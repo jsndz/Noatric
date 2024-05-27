@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import Logo from "/noatric-removebg.png";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserAsync, selectError, selectToken } from "../authSlice";
+import {
+  createUserAsync,
+  resetError,
+  selectError,
+  selectToken,
+} from "../authSlice";
 
 function Signup() {
   const navigate = useNavigate();
@@ -14,17 +19,20 @@ function Signup() {
   } = useForm();
   const dispatch = useDispatch();
   const tkn = useSelector(selectToken);
-
+  useEffect(() => {
+    dispatch(resetError());
+  }, [dispatch]);
   const error = useSelector(selectError);
   return (
     <div>
       {tkn ? <Navigate to="/" /> : null}
-      <section className="min-h-screen flex items-stretch justify-center text-white">
-        <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0">
-          <div className="border-r-2 border-gray-600 pr-8">
-            {" "}
-            <img src={Logo} width={400} height={400} alt="Noatric" />
+      <section className="min-h-screen flex flex-col items-center justify-center text-white">
+        <div className="py-6">
+          <div className="border-gray-600 pr-8">
+            <img src={Logo} width={400} height={400} alt="side" />
           </div>
+        </div>
+        <div className="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0">
           <div className="w-full py-6">
             <form
               noValidate
@@ -70,8 +78,8 @@ function Signup() {
                       value:
                         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
                       message: `- at least 8 characters\n
-                        - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                        - Can contain special characters`,
+              - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
+              - Can contain special characters`,
                     },
                   })}
                   id="password"

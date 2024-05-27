@@ -8,6 +8,7 @@ import {
   RouterProvider,
   Route,
   Link,
+  useLocation,
 } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -153,8 +154,8 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(AuthHeaderSet());
-    dispatch(resetError());
-  }, []);
+  }, [dispatch]);
+
   return (
     <>
       <RouterProvider router={router} />
