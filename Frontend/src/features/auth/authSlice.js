@@ -163,9 +163,7 @@ export const setPasswordAsync = createAsyncThunk(
   "user/setPassword",
   async (userData, thunkAPI) => {
     try {
-      console.log(userData);
       const response = await setPassword(userData);
-      console.log(response);
       return response.data;
     } catch (error) {
       console.error("Error set Password ", error);

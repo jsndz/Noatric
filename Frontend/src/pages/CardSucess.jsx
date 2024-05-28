@@ -8,9 +8,7 @@ import Navbar from "../features/Navbar/Navbar";
 function CardSucess() {
   const dispatch = useDispatch();
   const orderId = useSelector(selectOrderId);
-  if (orderId !== null) {
-    console.log(orderId);
-  }
+
   useEffect(() => {}, []);
   return (
     <>

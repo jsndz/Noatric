@@ -62,10 +62,9 @@ export default function ProductList() {
   const brands = useSelector(selectAllBrands);
   const categories = useSelector(selectAllCategories);
   const totalItems = useSelector(selectTotalItems);
-  console.log(totalItems);
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const handleFilter = (e, section, option) => {
-    console.log(page);
     const newFilter = { ...filter };
     if (e.target.checked) {
       if (newFilter[section.id]) {
@@ -87,7 +86,6 @@ export default function ProductList() {
       (options) => options.length === 0
     );
     if (allOptionsUnclicked) {
-      console.log(page);
       const pagin = { page: page, limit: ITEMS_PER_PAGE };
       setFilter({});
       dispatch(fetchProductsByFilterAsync({ filter: {}, pagin }));
@@ -107,12 +105,9 @@ export default function ProductList() {
   };
   const pagin = { page: page, limit: ITEMS_PER_PAGE };
   const handlePagination = (page) => {
-    console.log(page);
     setPage(page);
-    console.log(page);
   };
   useEffect(() => {
-    console.log(page);
     dispatch(fetchProductsByFilterAsync({ filter, pagin }));
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync());

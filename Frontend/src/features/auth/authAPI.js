@@ -90,12 +90,10 @@ export const resetPassword = async (email) => {
 };
 export const setPassword = async (userData) => {
   try {
-    console.log(userData);
     const response = await axios.post(
       `http://localhost:3000/api/v1/auth/reset-password/`,
       userData
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.log("Error", error.response.data);

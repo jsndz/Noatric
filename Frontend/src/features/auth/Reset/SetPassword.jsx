@@ -8,7 +8,6 @@ import TagLine from "../../Landing/components/Tagline";
 function SetPassword() {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log(id);
   const {
     register,
     handleSubmit,

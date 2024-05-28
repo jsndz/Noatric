@@ -86,7 +86,6 @@ export const sendEmail = async (req, res) => {
 
 export const getToken = async (req, res) => {
   try {
-    console.log(req.body);
     const token = req.body.token;
     const newPassword = req.body.password;
 

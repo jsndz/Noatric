@@ -231,7 +231,6 @@ const AddressListing = ({
   setSelectedAddress,
   handleAddressForm,
 }) => {
-  console.log(addresses);
   return addresses.length !== 0 ? (
     <div>
       <div className="border-b rounded-md border-gray-300 pb-12">

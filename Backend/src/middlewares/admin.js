@@ -9,7 +9,6 @@ async function createAdmin() {
       role: "admin",
     };
     const user = await userService.createUser(admin);
-    console.log(user);
   } catch (error) {
     console.log(error);
   }

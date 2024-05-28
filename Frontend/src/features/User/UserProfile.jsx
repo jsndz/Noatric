@@ -50,7 +50,6 @@ function UserProfile() {
     setIsNameDialogOpen(true);
   };
   const handleAddAddressClick = () => {
-    console.log(showAddAddressForm);
     setShowAddAddressForm(true);
   };
 

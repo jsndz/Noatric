@@ -49,8 +49,7 @@ export async function fetchProductsByFilters(filter, pagin) {
   try {
     const res = await axios.get(apiUrl, { params });
     const totalItems = res.headers["x-total-count"];
-    console.log("totalItems", totalItems);
-    console.log("Response Headers:", res.headers);
+
     const response = { ...res.data, totalItems };
 
     return response;
