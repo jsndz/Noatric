@@ -42,33 +42,76 @@ function OrderCard({ order }) {
   }, [order.items]);
 
   return (
-    <div className="border border-color-1 rounded-lg p-6 my-8">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Order Details</h2>
-        <span className="text-gray-600">ID: {order.id}</span>
+    <div className="border border-gray-700 shadow-lg rounded-lg p-6 my-8 bg-black">
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold text-white">Order Details</h2>
+        <span className="text-gray-400">ID: {order.id}</span>
       </div>
-      <p>Status: {order.status}</p>
-      <p>Total Items: {order.totalItems}</p>
-      <p>Total Amount: ${order.totalAmount}</p>
-      <p>Payment Method: {order.paymentMethod}</p>
-      <p>Selected Address:</p>
-      {order.selectedAddress && (
-        <div className="ml-4">
-          <p>Name: {order.selectedAddress.name}</p>
-          <p>Email: {order.selectedAddress.email}</p>
-          <p>Country: {order.selectedAddress.country}</p>
-          <p>Street Address: {order.selectedAddress["street-address"]}</p>
-          <p>City: {order.selectedAddress.city}</p>
+
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold text-gray-300 mb-2">Summary</h3>
+        <div className="grid grid-cols-2 gap-4 text-gray-400">
+          <p>
+            <span className="font-medium text-gray-300">Status:</span>{" "}
+            {order.status}
+          </p>
+          <p>
+            <span className="font-medium text-gray-300">Total Items:</span>{" "}
+            {order.totalItems}
+          </p>
+          <p>
+            <span className="font-medium text-gray-300">Total Amount:</span> $
+            {order.totalAmount}
+          </p>
+          <p>
+            <span className="font-medium text-gray-300">Payment Method:</span>{" "}
+            {order.paymentMethod}
+          </p>
         </div>
-      )}
-      <h2 className="mt-4 text-xl font-semibold">Products</h2>
-      <ul className="list-disc ml-8">
-        {products.map((product) => (
-          <li key={product.id}>
-            <ProductDetails product={product} />
-          </li>
-        ))}
-      </ul>
+      </div>
+
+      <div className="mb-8">
+        <h3 className="text-lg font-semibold text-gray-300 mb-2">
+          Selected Address
+        </h3>
+        {order.selectedAddress ? (
+          <div className="bg-gray-800 p-4 rounded-lg shadow-inner text-gray-400">
+            <p>
+              <span className="font-medium text-gray-300">Name:</span>{" "}
+              {order.selectedAddress.name}
+            </p>
+            <p>
+              <span className="font-medium text-gray-300">Email:</span>{" "}
+              {order.selectedAddress.email}
+            </p>
+            <p>
+              <span className="font-medium text-gray-300">Country:</span>{" "}
+              {order.selectedAddress.country}
+            </p>
+            <p>
+              <span className="font-medium text-gray-300">Street Address:</span>{" "}
+              {order.selectedAddress["street-address"]}
+            </p>
+            <p>
+              <span className="font-medium text-gray-300">City:</span>{" "}
+              {order.selectedAddress.city}
+            </p>
+          </div>
+        ) : (
+          <p className="text-gray-400">No address selected</p>
+        )}
+      </div>
+
+      <div>
+        <h3 className="text-lg font-semibold text-gray-300 mb-2">Products</h3>
+        <ul className="list-disc ml-8 space-y-2 text-gray-400">
+          {products.map((product) => (
+            <li key={product.id}>
+              <ProductDetails product={product} />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
