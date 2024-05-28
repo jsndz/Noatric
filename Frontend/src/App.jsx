@@ -9,6 +9,7 @@ import {
   Route,
   Link,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
@@ -27,9 +28,19 @@ import AdminOrderPage from "./pages/AdminOrderPage";
 import StripeCheckout from "./pages/StripeCheckout";
 import ResetPasswordReq from "./pages/ResetPasswordReq";
 import SetPasswordPage from "./pages/SetPasswordPage";
-import { AuthHeaderSet, resetError } from "./features/auth/authSlice";
+import {
+  AuthHeaderSet,
+  AuthSignOut,
+  resetError,
+} from "./features/auth/authSlice";
 import CardSucess from "./pages/CardSucess";
+import { AUTO_LOGOUT_TIME } from "./app/constants";
 import LandingPage from "./features/Landing/LandingPage";
+import { CartSignOut } from "./features/Cart/cartSlice";
+import { OrSignOut } from "./features/Order/orderSlice";
+import { ProSignOut } from "./features/Product/productSlice";
+import { BrandSignOut } from "./features/Product/brandSlice";
+import { CatSignOut } from "./features/Product/categorySlice";
 const router = createBrowserRouter([
   {
     path: "/",

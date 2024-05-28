@@ -32,7 +32,7 @@ export const createUserAsync = createAsyncThunk(
         "Authorization"
       ] = `Bearer ${response.token}`;
       Cookies.set("token", response.token, {
-        expires: 7,
+        expires: 1,
         sameSite: "None",
         secure: true,
       });
@@ -59,7 +59,7 @@ export const loginUserAsync = createAsyncThunk(
         "Authorization"
       ] = `Bearer ${response.token}`;
       Cookies.set("token", response.token, {
-        expires: 1 / 24,
+        expires: 1,
         sameSite: "None",
         secure: true,
       });

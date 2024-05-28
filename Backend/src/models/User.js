@@ -75,7 +75,7 @@ UserSchema.methods.genJwt = function () {
     email: this.email,
   };
   return jwt.sign(payload, JWT_SECRET, {
-    expiresIn: "1h",
+    expiresIn: "1d",
   });
 };
 
