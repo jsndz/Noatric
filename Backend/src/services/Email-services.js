@@ -25,7 +25,7 @@ export const sendEmail = async (req, res) => {
       id: user._id,
     };
     const token = await jwt.sign(payload, secret, { expiresIn: "15m" });
-    const link = `http://localhost:5173/reset-password/${token}`;
+    const link = `/reset-password/${token}`;
     await Sender.sendMail({
       from: "Noatric Team <no-reply@noatric.com>",
       to: mailTo,

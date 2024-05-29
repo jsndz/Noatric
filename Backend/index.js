@@ -9,18 +9,21 @@ import passport from "passport";
 import Stripe from "stripe";
 import { passportAuth } from "./src/config/authConfig.js";
 import { STRIPE_SK } from "./src/config/serverconfig.js";
-
+import path from "path";
+import { fileURLToPath } from "url";
+import { env } from "process";
 const app = express();
 const corsOptions = {
   exposedHeaders: ["X-Total-Count"],
 };
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(express.raw({ type: "application/json" }));
-
+app.use(express.static(path.resolve(__dirname, "dist")));
 // Payment gateway setup
 const stripe = Stripe(STRIPE_SK);
 app.post("/create-payment-intent", async (req, res) => {

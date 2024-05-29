@@ -2,10 +2,7 @@ import axios from "axios";
 
 export const createOrder = async (orderData) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/orders",
-      orderData
-    );
+    const response = await axios.post(" /api/v1/orders", orderData);
     return response.data;
   } catch (error) {
     console.log("Error creating order:", error);
@@ -15,7 +12,7 @@ export const createOrder = async (orderData) => {
 
 export const fetchOrder = async () => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/v1/orders`);
+    const response = await axios.get(` /api/v1/orders`);
     return response.data;
   } catch (error) {
     console.log("Error fetching orders:", error);
@@ -25,9 +22,7 @@ export const fetchOrder = async () => {
 
 export const getOrder = async (orderId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/v1/orders/${orderId}`
-    );
+    const response = await axios.get(` /api/v1/orders/${orderId}`);
     return response.data;
   } catch (error) {
     console.log("Error fetching orders:", error);
@@ -37,7 +32,7 @@ export const getOrder = async (orderId) => {
 
 export const fetchOrderItems = async () => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/v1/orderItems`);
+    const response = await axios.get(` /api/v1/orderItems`);
     return response.data;
   } catch (error) {
     console.log("Error fetching orders:", error);
@@ -55,7 +50,7 @@ export const getAllOrders = async ({ sort, pagin }) => {
     params.append("_sort", sort._sort);
   }
   try {
-    const res = await axios.get(`http://localhost:3000/api/v1/allOrder`, {
+    const res = await axios.get(` /api/v1/allOrder`, {
       params,
     });
     const totalItems = res.headers["x-total-count"];
@@ -68,9 +63,7 @@ export const getAllOrders = async ({ sort, pagin }) => {
 };
 export const getOrderProducts = async (orderId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/v1/orderProducts/${orderId}`
-    );
+    const response = await axios.get(` /api/v1/orderProducts/${orderId}`);
     return response.data;
   } catch (error) {
     console.log("Error fetching orders:", error);
@@ -80,10 +73,7 @@ export const getOrderProducts = async (orderId) => {
 
 export const updateOrder = async (updatedOrder) => {
   try {
-    const response = await axios.patch(
-      `http://localhost:3000/api/v1/orderStatus`,
-      updatedOrder
-    );
+    const response = await axios.patch(` /api/v1/orderStatus`, updatedOrder);
     return response.data;
   } catch (error) {
     console.log("Error fetching orders:", error);

@@ -23,7 +23,7 @@ export default function StripeCheckout() {
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
-    fetch("http://localhost:3000/create-payment-intent", {
+    fetch(" /create-payment-intent", {
       // Change HTTPS to HTTP here
       method: "POST",
       headers: { "Content-Type": "application/json" },

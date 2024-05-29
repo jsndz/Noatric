@@ -64,7 +64,7 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Change HTTPS to HTTP here
-        return_url: `http://localhost:5173/cardSuccess`,
+        return_url: `/cardSuccess`,
       },
     });
 

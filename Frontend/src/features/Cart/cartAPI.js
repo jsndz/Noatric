@@ -2,10 +2,7 @@ import axios from "axios";
 
 export const addToCart = async (cartId, productId) => {
   try {
-    const response = await axios.patch(
-      `http://localhost:3000/api/v1/carts/${cartId}`,
-      productId
-    );
+    const response = await axios.patch(` /api/v1/carts/${cartId}`, productId);
 
     return response;
   } catch (error) {
@@ -15,9 +12,7 @@ export const addToCart = async (cartId, productId) => {
 
 export const getTotalProducts = async (cartId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/v1/carts/${cartId}`
-    );
+    const response = await axios.get(` /api/v1/carts/${cartId}`);
     return response.data;
   } catch (error) {
     console.log("Error in getting count ", error);
@@ -26,9 +21,7 @@ export const getTotalProducts = async (cartId) => {
 
 export const getAllCartItems = async (cartId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:3000/api/v1/carts/${cartId}/items`
-    );
+    const response = await axios.get(` /api/v1/carts/${cartId}/items`);
     return response.data;
   } catch (error) {
     console.log("Error in cart items", error);
@@ -38,7 +31,7 @@ export const getAllCartItems = async (cartId) => {
 export const changeCartItem = async (cartId, productId) => {
   try {
     const response = await axios.delete(
-      `http://localhost:3000/api/v1/carts/${cartId}/product/${productId}`
+      ` /api/v1/carts/${cartId}/product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -49,7 +42,7 @@ export const changeCartItem = async (cartId, productId) => {
 export const increaseQuantity = async (cartId, productId) => {
   try {
     const response = await axios.patch(
-      `http://localhost:3000/api/v1/carts/${cartId}/product/${productId}/increase`
+      ` /api/v1/carts/${cartId}/product/${productId}/increase`
     );
     return response.data;
   } catch (error) {
@@ -59,7 +52,7 @@ export const increaseQuantity = async (cartId, productId) => {
 export const decreaseQuantity = async (cartId, productId) => {
   try {
     const response = await axios.delete(
-      `http://localhost:3000/api/v1/carts/${cartId}/product/${productId}/decrease`
+      ` /api/v1/carts/${cartId}/product/${productId}/decrease`
     );
     return response.data;
   } catch (error) {
@@ -69,9 +62,7 @@ export const decreaseQuantity = async (cartId, productId) => {
 
 export const emptyCart = async (cartId) => {
   try {
-    const response = await axios.patch(
-      `http://localhost:3000/api/v1/cart/empty/${cartId}`
-    );
+    const response = await axios.patch(` /api/v1/cart/empty/${cartId}`);
     return response.data;
   } catch (error) {
     console.log("Error in cart items", error);
@@ -80,7 +71,7 @@ export const emptyCart = async (cartId) => {
 
 export const getCartId = async () => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/v1/cartId/`);
+    const response = await axios.get(` /api/v1/cartId/`);
     return response.data;
   } catch (error) {
     console.log("Error in cart id", error);
